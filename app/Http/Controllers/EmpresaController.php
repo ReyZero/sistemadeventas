@@ -171,9 +171,9 @@ class EmpresaController extends Controller
         $request->validate([
             'nombre_empresa' => 'required',
             'tipo_empresa' => 'required',
-            'nit' => 'required|unique:empresas',
+            'nit' => 'required|unique:empresas,nit,'.$id,
             'telefono' => 'required',
-            'correo' => 'required|unique:empresas',
+            'correo' => 'required|unique:empresas,correo,'.$id,
             'cantidad_impuesto' => 'required',
             'nombre_impuesto' => 'required',
             'direccion' => 'required',
@@ -206,8 +206,9 @@ class EmpresaController extends Controller
         // Guardar en la base de datos
         $empresa->save();
 
+        $usuario_id = Auth::user()->id;
         // Actualizar un usuario para el sistema
-        $usuario = User::find($empresa->user->id) ;
+        $usuario = User::find($usuario_id) ;
         $usuario->name = "Admin";
         $usuario->email = $request->correo;
         $usuario->password = Hash::make($request['nit']);
@@ -218,7 +219,8 @@ class EmpresaController extends Controller
          
 
         return redirect()->route('admin.index')
-            ->with('mensaje', 'Se Actualizo los datos de la empresa de la Manera correcta');
+            ->with('mensaje', 'Se Actualizo los datos de la empresa de la Manera correcta')
+            ->with('icono','success');
     }
 
     /**
