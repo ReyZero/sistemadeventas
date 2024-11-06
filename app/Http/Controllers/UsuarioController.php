@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use app\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Hash;
+
 
 class UsuarioController extends Controller
 {
@@ -12,6 +17,9 @@ class UsuarioController extends Controller
     public function index()
     {
         //
+        $empresa_id = Auth::user()->empresa_id;
+        $usuarios = User::where('empresa_id', $empresa_id)->get();
+        return view('admin.usuarios.index', compact('usuarios'));
     }
 
     /**
@@ -20,6 +28,8 @@ class UsuarioController extends Controller
     public function create()
     {
         //
+        $roles = Role::all();
+        return view('admin.usuarios.create', compact('roles'));
     }
 
     /**
@@ -28,22 +38,50 @@ class UsuarioController extends Controller
     public function store(Request $request)
     {
         //
+        /*
+        
+        $datos = request()->all();
+        return response()->json($datos); 
+        */
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|unique:users',
+            'password' => 'required|confirmed',
+        ]);
+        $usuario = new User();
+        $usuario->name = $request->name;
+        $usuario->email = $request->email;
+        $usuario->password = hash::make($request->password);
+        $usuario->empresa_id = Auth::user()->empresa_id;
+
+        $usuario->save();
+
+        $usuario->assignRole($request->role);
+
+        return redirect()->route('admin.usuarios.index')
+            ->with('mensaje', 'Se creo el nuevo usuario de la manera correcta')
+            ->with('icono', 'success');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        //echo $id;
+        $usuario = User::find($id);
+        return view('admin.usuarios.show', compact('usuario'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        //echo $id;
+        $usuario = User::find($id);
+        $roles = Role::all();
+        return view('admin.usuarios.edit', compact('usuario', 'roles'));
     }
 
     /**
@@ -52,13 +90,39 @@ class UsuarioController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        /*
+        $datos= request()->all();
+        return response()->json($datos);
+        */
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|unique:users,email,' . $id,
+          
+        ]);
+        $usuario = User::find($id);
+        $usuario->name = $request->name;
+        $usuario->email = $request->email;
+        if ($request->filled('password')) {
+            $usuario->password = Hash::make($request->password);
+        }
+        $usuario->empresa_id = Auth::user()->empresa_id;
+        $usuario->save();
+        $usuario->syncRoles($request->role);
+
+        return redirect()->route('admin.usuarios.index')
+        ->with('mensaje','Se Modifico el usuario de manera correcta')
+        ->with('icono','success');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        //echo $id;
+        User::destroy($id);
+        return redirect()->route('admin.usuarios.index')
+        ->with('mensaje','Se ELIMINO el usuario de la manera correcta')
+        ->with('icono','success');
     }
 }

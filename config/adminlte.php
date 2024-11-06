@@ -337,25 +337,39 @@ return [
             'text' => 'configuración',
             'url' => 'admin/configuracion',
             'icon' => 'fas fa-fw fa-gear',
-            'classes'=> 'bg-blue text-white',
+            'classes' => 'bg-blue text-white',
         ],
         /* Menu Roles */
         [
             'text' => 'Roles',
             'icon' => 'fas fa-fw fa-user-check',
-            'classes'=> 'bg-blue text-white',
+            'classes' => 'bg-blue text-white',
             'submenu' => [
                 [
                     'text' => 'Listado de Roles',
                     'url' => 'admin/roles/',
-                    'classes'=> 'bg-white text-gray-900',
+                    'classes' => 'bg-white text-gray-900',
                 ],
-             
-               
+
+
             ],
         ],
 
-     
+        /* Menu Roles */
+        [
+            'text' => 'Usuarios',
+            'icon' => 'fas fa-fw fa-users',
+            'classes' => 'bg-blue text-white',
+            'submenu' => [
+                [
+                    'text' => 'Listado de usuarios',
+                    'url' => 'admin/usuarios/',
+                    'classes' => 'bg-white text-gray-900',
+                ],
+
+
+            ],
+        ],
         /* ['header' => 'labels'],
         [
             'text' => 'important',
