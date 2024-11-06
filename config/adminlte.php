@@ -355,7 +355,7 @@ return [
             ],
         ],
 
-        /* Menu Roles */
+        /* Menu Usuarios */
         [
             'text' => 'Usuarios',
             'icon' => 'fas fa-fw fa-users',
@@ -364,6 +364,21 @@ return [
                 [
                     'text' => 'Listado de usuarios',
                     'url' => 'admin/usuarios/',
+                    'classes' => 'bg-white text-gray-900',
+                ],
+
+
+            ],
+        ],
+         /* Menu Categorias */
+         [
+            'text' => 'Categorias',
+            'icon' => 'fas fa-fw fa-tags',
+            'classes' => 'bg-blue text-white',
+            'submenu' => [
+                [
+                    'text' => 'Listado de Categorias',
+                    'url' => 'admin/categorias/',
                     'classes' => 'bg-white text-gray-900',
                 ],
 

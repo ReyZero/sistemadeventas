@@ -30,7 +30,7 @@
                             </div>
                         </div>
                     </div>
-                    <hr style="background-color: warning;">
+                    <hr style="background-color: #F39C12;">
                     <div class="row">
                         <div class="col-md-12 d-flex justify-content-center">
                             <div class="form-group">
