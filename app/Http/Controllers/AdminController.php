@@ -16,9 +16,11 @@ class AdminController extends Controller
     {
         $total_roles = Role::count();
         $total_usuarios = User::count();
-        $total_categorias= Categoria::count();
-        $empresa_id = Auth::user()->empresa_id;
+        $total_categorias = Categoria::count();
+//esta paso es en caso que el sistema se desconecte por cualquier razon y pierda el usuario, nos enviara a login
+        $empresa_id = Auth::check() ?  Auth::user()->empresa_id : redirect()->route('login')->send();
+
         $empresa = Empresa::where('id', $empresa_id)->first();
-        return view('admin.index', compact('empresa','total_roles','total_usuarios','total_categorias'));
+        return view('admin.index', compact('empresa', 'total_roles', 'total_usuarios', 'total_categorias'));
     }
 }
