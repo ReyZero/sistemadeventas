@@ -385,6 +385,21 @@ return [
 
             ],
         ],
+         /* Menu Categorias */
+         [
+            'text' => 'Productos',
+            'icon' => 'fas fa-fw fa-list',
+            'classes' => 'bg-blue text-white',
+            'submenu' => [
+                [
+                    'text' => 'Listado de Productos',
+                    'url' => 'admin/productos/',
+                    'classes' => 'bg-white text-gray-900',
+                ],
+
+
+            ],
+        ],
         /* ['header' => 'labels'],
         [
             'text' => 'important',

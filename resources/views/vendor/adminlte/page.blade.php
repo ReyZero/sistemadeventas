@@ -25,10 +25,18 @@
         /* Aumenta ligeramente el tamaño del icono */
     }
 
-    /* Hover effect for PRODUCTOS */
+    /* Hover effect for CATEGORIAS */
     .info-box .info-box-icon.bg-warning:hover {
         background-color: #ffc107 !important;
         /* Color warning para el hover */
+        transform: scale(1.1);
+        /* Aumenta ligeramente el tamaño del icono */
+    }
+
+      /* Hover effect for PRODUCTOS */
+    .info-box .info-box-icon.bg-warning:hover {
+        background-color: #FF7F50 !important;
+        /* Color Coral para el hover */
         transform: scale(1.1);
         /* Aumenta ligeramente el tamaño del icono */
     }

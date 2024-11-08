@@ -96,8 +96,9 @@ class UsuarioController extends Controller
         */
         $request->validate([
             'name' => 'required',
+            'password' => 'confirmed',
             'email' => 'required|unique:users,email,' . $id,
-          
+
         ]);
         $usuario = User::find($id);
         $usuario->name = $request->name;
@@ -110,8 +111,8 @@ class UsuarioController extends Controller
         $usuario->syncRoles($request->role);
 
         return redirect()->route('admin.usuarios.index')
-        ->with('mensaje','Se Modifico el usuario de manera correcta')
-        ->with('icono','success');
+            ->with('mensaje', 'Se Modifico el usuario de manera correcta')
+            ->with('icono', 'success');
     }
 
     /**
@@ -122,7 +123,7 @@ class UsuarioController extends Controller
         //echo $id;
         User::destroy($id);
         return redirect()->route('admin.usuarios.index')
-        ->with('mensaje','Se ELIMINO el usuario de la manera correcta')
-        ->with('icono','success');
+            ->with('mensaje', 'Se ELIMINO el usuario de la manera correcta')
+            ->with('icono', 'success');
     }
 }

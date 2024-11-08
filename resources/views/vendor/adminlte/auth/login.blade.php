@@ -97,7 +97,7 @@
     @if($register_url)
         <p class="my-0">
             <a href="{{ url('/crear-empresa') }}">
-                {{ __('adminlte::adminlte.register_a_new_membership') }}
+                Crear una nueva Empresa
             </a>
         </p>
     @endif

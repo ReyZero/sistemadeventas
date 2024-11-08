@@ -57,7 +57,7 @@
                                                 event.preventDefault(); 
 
                                                 Swal.fire({
-                                                    title: '¿Desea ELIMINAR este registro?',
+                                                    title: '¿Desea ELIMINAR este registro? Si eliminas este CATEGORIA, los productos se ELIMINARAN',
                                                     icon: 'question',
                                                     showDenyButton: true,
                                                     confirmButtonText: 'Eliminar',

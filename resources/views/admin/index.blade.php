@@ -49,6 +49,20 @@
         </div>
     </div>
 
+    <!-- PRODUCTOS -->
+    <div class="col-md-3 col-sm-6 col-12">
+        <div class="info-box zoomP" style="background: linear-gradient(135deg, #000000, #333333); border: 2px solid #FF7F50; border-radius: 10px; transition: all 0.3s ease;">
+            <a href="{{ url('/admin/productos') }}" class="info-box-icon bg-warning" style="color: #fff; border-radius: 50%; transition: background-color 0.3s ease;">
+                <i class="fas fa-list"></i>
+            </a>
+            <div class="info-box-content">
+                <span class="info-box-text" style="color: #fff;">Productos registrados</span>
+                <span class="info-box-numbers" style="color: #fff;">{{ $total_productos }} productos</span>
+            </div>
+        </div>
+    </div>
+
+
 </div>
 @stop
 
