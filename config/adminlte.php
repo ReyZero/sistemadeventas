@@ -385,7 +385,7 @@ return [
 
             ],
         ],
-         /* Menu Categorias */
+         /* Menu Productos */
          [
             'text' => 'Productos',
             'icon' => 'fas fa-fw fa-list',
@@ -394,6 +394,21 @@ return [
                 [
                     'text' => 'Listado de Productos',
                     'url' => 'admin/productos/',
+                    'classes' => 'bg-white text-gray-900',
+                ],
+
+
+            ],
+        ],
+         /* Menu Proveedores */
+         [
+            'text' => 'Proveedores',
+            'icon' => 'fas fa-fw fa-list',
+            'classes' => 'bg-blue text-white',
+            'submenu' => [
+                [
+                    'text' => 'Listado de Proveedores',
+                    'url' => 'admin/proveedores/',
                     'classes' => 'bg-white text-gray-900',
                 ],
 

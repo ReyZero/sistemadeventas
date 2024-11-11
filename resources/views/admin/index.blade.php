@@ -39,12 +39,13 @@
     <!-- CATEGORIAS -->
     <div class="col-md-3 col-sm-6 col-12">
         <div class="info-box zoomP" style="background: linear-gradient(135deg, #000000, #333333); border: 2px solid #ffc107; border-radius: 10px; transition: all 0.3s ease;">
-            <a href="{{ url('/admin/categorias') }}" class="info-box-icon bg-warning" style="color: #fff; border-radius: 50%; transition: background-color 0.3s ease;">
-                <i class="fas fa-tags"></i>
+            <!-- Enlace con ícono y fondo amarillo -->
+            <a href="{{ url('/admin/categorias') }}" class="info-box-icon" style="color: #fff; background-color: #ffc107; border-radius: 50%; transition: background-color 0.3s ease; border: 2px solid #ffc107;">
+                <i class="fas fa-tags" style="color: #fff;"></i> <!-- Ícono blanco -->
             </a>
             <div class="info-box-content">
-                <span class="info-box-text" style="color: #fff;">Categorias registradas</span>
-                <span class="info-box-numbers" style="color: #fff;">{{ $total_categorias }} Categorias</span>
+                <span class="info-box-text" style="color: #fff;">Categorias registrados</span>
+                <span class="info-box-numbers" style="color: #fff;">{{ $total_categorias }} usuarios</span>
             </div>
         </div>
     </div>
@@ -52,15 +53,35 @@
     <!-- PRODUCTOS -->
     <div class="col-md-3 col-sm-6 col-12">
         <div class="info-box zoomP" style="background: linear-gradient(135deg, #000000, #333333); border: 2px solid #FF7F50; border-radius: 10px; transition: all 0.3s ease;">
-            <a href="{{ url('/admin/productos') }}" class="info-box-icon bg-warning" style="color: #fff; border-radius: 50%; transition: background-color 0.3s ease;">
-                <i class="fas fa-list"></i>
+            <!-- Enlace con ícono y fondo coral -->
+            <a href="{{ url('/admin/productos') }}" class="info-box-icon" style="color: #fff; background-color: #FF7F50; border-radius: 50%; transition: background-color 0.3s ease; border: 2px solid #FF7F50;">
+                <i class="fas fa-list" style="color: #fff;"></i> <!-- Ícono blanco -->
             </a>
             <div class="info-box-content">
                 <span class="info-box-text" style="color: #fff;">Productos registrados</span>
-                <span class="info-box-numbers" style="color: #fff;">{{ $total_productos }} productos</span>
+                <span class="info-box-numbers" style="color: #fff;">{{ $total_productos }} usuarios</span>
             </div>
         </div>
     </div>
+
+
+    <!-- PROVEEDORES -->
+    <div class="col-md-3 col-sm-6 col-12">
+        <div class="info-box zoomP" style="background: linear-gradient(135deg, #000000, #333333); border: 2px solid #FF0000; border-radius: 10px; transition: all 0.3s ease;">
+            <!-- Enlace con ícono y fondo rojo -->
+            <a href="{{ url('/admin/proveedores') }}" class="info-box-icon" style="color: #fff; background-color: #FF0000; border-radius: 50%; transition: background-color 0.3s ease; border: 2px solid #FF0000;">
+                <i class="fas fa-list" style="color: #fff;"></i> <!-- Ícono blanco -->
+            </a>
+            <div class="info-box-content">
+                <span class="info-box-text" style="color: #fff;">Proveedores registrados</span>
+                <span class="info-box-numbers" style="color: #fff;">{{ $total_proveedores }} productos</span>
+            </div>
+        </div>
+    </div>
+
+
+
+
 
 
 </div>
