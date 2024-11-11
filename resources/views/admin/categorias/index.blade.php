@@ -62,7 +62,7 @@
                                                     showDenyButton: true,
                                                     confirmButtonText: 'Eliminar',
                                                     denyButtonText: 'Cancelar',
-                                                }).then((result) => {
+                                                }).then((result) => { 
                                                     if (result.isConfirmed) {
                                                         var form = document.getElementById('miFormulario{{$categoria->id}}');
                                                         form.submit();

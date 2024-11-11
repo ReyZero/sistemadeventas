@@ -19,7 +19,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <table class="table table-striped table-bordered table-hover table-sm">
+                <table id="tablausuario" class="table table-striped table-bordered table-hover table-sm">
                     <thead class="thead-light">
                         <tr>
                             <th scope="col">Nro</th>
@@ -121,6 +121,32 @@
 @stop
 
 @section('js')
+<script>
+    $('#tablausuario').DataTable({
+        "pageLength": 2,
+        "language": {
+            "emptyTable": "No hay Información para visualizar",
+            "info": "Mostrando de _START_ a _END_ Entradas, de un total de _TOTAL_ entradas disponibles",
+            "infoEmpty": "Mostrando 0 a 0 de 0 Entradas",
+            "infoFiltered": "(Filtrado de _MAX_ Entradas totales)",
+            "infoPostFix": "",
+            "thousands": "",
+            "lengthMenu": "Mostrar  _MENU_  Entradas",
+            "loadingRecords": "Cargando . . ",
+            "processing": "Procesando. . . ",
+            "search": "Buscar: ",
+            "zeroRecords": "Sin resultados en la busqueda",
+            "paginate": {
+                "first": "Primero",
+                "last": "Ultimo",
+                "next": "Siguiente",
+                "previous": "Anterior"
+            }
+        },
+    });
+</script>
+
+
 @if ((($mensaje=Session::get('mensaje')) &&(($icono=Session::get('icono')))))
 <script>
     Swal.fire({

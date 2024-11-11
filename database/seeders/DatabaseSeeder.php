@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Producto;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -21,8 +23,8 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
         //creando el Semprador
-        $administrador = Role::create([
-            "name"=> "ADMINISTRADOR",
-        ]);
+       // $administrador = Role::create(["name"=> "ADMINISTRADOR",]);
+
+        Producto::factory()->count(100)->create();
     }
 }
