@@ -1,0 +1,16 @@
+COMANDOS GIT
+git init  // iniciar proyecto
+git status
+git add .
+git commit -m "PAra crear el primero"
+git Branch -M main
+git remote add origin https://  mi GitHub y su carpeta creada 
+git push -u origin main
+
+Para actualizar una vez ya esta creado el paso anterior
+git status
+git add .
+git commit -m "Comentario del proceso en el que vez"
+git push -u origin main
+
+git log ves todos los comentarios
