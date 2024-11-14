@@ -403,12 +403,28 @@ return [
          /* Menu Proveedores */
          [
             'text' => 'Proveedores',
-            'icon' => 'fas fa-fw fa-list',
+            'icon' => 'fas fa-fw fa-truck-fast',
             'classes' => 'bg-blue text-white',
             'submenu' => [
                 [
                     'text' => 'Listado de Proveedores',
                     'url' => 'admin/proveedores/',
+                    'classes' => 'bg-white text-gray-900',
+                ],
+
+
+            ],
+        ],
+
+        /* Menu Proveedores */
+        [
+            'text' => 'Compras',
+            'icon' => 'fas fa-fw fa-shopping-cart',
+            'classes' => 'bg-blue text-white',
+            'submenu' => [
+                [
+                    'text' => 'Listado de Compras',
+                    'url' => 'admin/compras/',
                     'classes' => 'bg-white text-gray-900',
                 ],
 

@@ -70,11 +70,26 @@
         <div class="info-box zoomP" style="background: linear-gradient(135deg, #000000, #333333); border: 2px solid #FF0000; border-radius: 10px; transition: all 0.3s ease;">
             <!-- Enlace con ícono y fondo rojo -->
             <a href="{{ url('/admin/proveedores') }}" class="info-box-icon" style="color: #fff; background-color: #FF0000; border-radius: 50%; transition: background-color 0.3s ease; border: 2px solid #FF0000;">
-                <i class="fas fa-list" style="color: #fff;"></i> <!-- Ícono blanco -->
+                <i class="fas fa-truck-fast" style="color: #fff;"></i> <!-- Ícono blanco -->
             </a>
             <div class="info-box-content">
                 <span class="info-box-text" style="color: #fff;">Proveedores registrados</span>
                 <span class="info-box-numbers" style="color: #fff;">{{ $total_proveedores }} productos</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- COMPRAS -->
+    <!-- COMPRAS -->
+    <div class="col-md-3 col-sm-6 col-12">
+        <div class="info-box zoomP" style="background: linear-gradient(135deg, #000000, #333333); border: 2px solid #007bff; border-radius: 10px; transition: all 0.3s ease;">
+            <!-- Enlace con ícono y fondo azul -->
+            <a href="{{ url('/admin/compras') }}" class="info-box-icon" style="color: #fff; background-color: #007bff; border-radius: 50%; transition: background-color 0.3s ease; border: 2px solid #007bff;">
+                <i class="fas fa-shopping-cart" style="color: #fff;"></i> <!-- Ícono blanco -->
+            </a>
+            <div class="info-box-content">
+                <span class="info-box-text" style="color: #fff;">Compras registradas</span>
+                <span class="info-box-numbers" style="color: #fff;">{{ $total_proveedores }} compras</span>
             </div>
         </div>
     </div>
