@@ -370,8 +370,8 @@ return [
 
             ],
         ],
-         /* Menu Categorias */
-         [
+        /* Menu Categorias */
+        [
             'text' => 'Categorias',
             'icon' => 'fas fa-fw fa-tags',
             'classes' => 'bg-blue text-white',
@@ -385,8 +385,8 @@ return [
 
             ],
         ],
-         /* Menu Productos */
-         [
+        /* Menu Productos */
+        [
             'text' => 'Productos',
             'icon' => 'fas fa-fw fa-list',
             'classes' => 'bg-blue text-white',
@@ -400,8 +400,8 @@ return [
 
             ],
         ],
-         /* Menu Proveedores */
-         [
+        /* Menu Proveedores */
+        [
             'text' => 'Proveedores',
             'icon' => 'fas fa-fw fa-truck-fast',
             'classes' => 'bg-blue text-white',
@@ -416,7 +416,7 @@ return [
             ],
         ],
 
-        /* Menu Proveedores */
+        /* Menu Compras */
         [
             'text' => 'Compras',
             'icon' => 'fas fa-fw fa-shopping-cart',
@@ -425,6 +425,21 @@ return [
                 [
                     'text' => 'Listado de Compras',
                     'url' => 'admin/compras/',
+                    'classes' => 'bg-white text-gray-900',
+                ],
+
+
+            ],
+        ],
+        /* Menu Clientes */
+        [
+            'text' => 'Clientes',
+            'icon' => 'fas fa-address-book',
+            'classes' => 'bg-blue text-white',
+            'submenu' => [
+                [
+                    'text' => 'Listado de Clientes',
+                    'url' => 'admin/clientes/',
                     'classes' => 'bg-white text-gray-900',
                 ],
 

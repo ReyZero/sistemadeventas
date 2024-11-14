@@ -14,3 +14,13 @@ git commit -m "Comentario del proceso en el que vez"
 git push -u origin main
 
 git log ves todos los comentarios
+
+Comando cuando va lento el sistema o no quiere reflejar cambios 
+
+php artisan config:clear
+php artisan route:clear
+php artisan view:clear
+
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache

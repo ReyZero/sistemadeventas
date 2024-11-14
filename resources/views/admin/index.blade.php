@@ -79,7 +79,7 @@
         </div>
     </div>
 
-    <!-- COMPRAS -->
+
     <!-- COMPRAS -->
     <div class="col-md-3 col-sm-6 col-12">
         <div class="info-box zoomP" style="background: linear-gradient(135deg, #000000, #333333); border: 2px solid #007bff; border-radius: 10px; transition: all 0.3s ease;">
@@ -94,6 +94,19 @@
         </div>
     </div>
 
+    <!-- CLIENTES -->
+    <div class="col-md-3 col-sm-6 col-12">
+        <div class="info-box zoomP" style="background: linear-gradient(135deg, #000000, #333333); border: 2px solid #20B2AA; border-radius: 10px; transition: all 0.3s ease;">
+            <!-- Enlace con ícono y fondo verde azulado -->
+            <a href="{{ url('/admin/clientes') }}" class="info-box-icon" style="color: #fff; background-color: #20B2AA; border-radius: 50%; transition: background-color 0.3s ease; border: 2px solid #20B2AA;">
+                <i class="fas fa-address-book" style="color: #fff;"></i> <!-- Ícono blanco -->
+            </a>
+            <div class="info-box-content">
+                <span class="info-box-text" style="color: #fff;">Clientes registrados</span>
+                <span class="info-box-numbers" style="color: #fff;">{{ $total_clientes}} clientes</span>
+            </div>
+        </div>
+    </div>
 
 
 
