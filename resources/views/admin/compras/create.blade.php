@@ -284,7 +284,7 @@
 
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" disabled id="empresa_proveedor" name="empresa_proveedor">
+                                    <input type="text" class="form-control"  id="empresa_proveedor" name="empresa_proveedor" required>
                                     <input type="text" class="form-control" readonly id="id_proveedor" name="proveedor_id" hidden>
 
                                 </div>
@@ -321,7 +321,7 @@
                                             </div>
                                             <input type="text" style="text-align: center; background-color: #3c8dbc; border: 1px solid #8da5b8;"
                                                 class="form-control" name="precio_total" required
-                                                value="{{ number_format($total_compra, 0, ',', '.') }}">
+                                                value="{{$total_compra}}">
 
                                             @error('precio_total')
                                             <small style="color:red;">{{$message}}</small>

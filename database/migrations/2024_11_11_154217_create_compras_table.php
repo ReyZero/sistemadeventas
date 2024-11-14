@@ -16,10 +16,13 @@ return new class extends Migration
 
             $table->date('fecha');
             $table->string('comprobante');
-        
-            $table->decimal('precio_total',8,0);          
+
+            $table->decimal('precio_total', 8, 0);
 
             $table->unsignedBigInteger('empresa_id');
+
+            $table->unsignedBigInteger('proveedores_id');
+            $table->foreign('proveedores_id')->references('id')->on('proveedors')->onDelete('cascade');
 
             $table->timestamps();
         });

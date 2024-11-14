@@ -89,7 +89,7 @@
             </a>
             <div class="info-box-content">
                 <span class="info-box-text" style="color: #fff;">Compras registradas</span>
-                <span class="info-box-numbers" style="color: #fff;">{{ $total_proveedores }} compras</span>
+                <span class="info-box-numbers" style="color: #fff;">{{ $total_compras }} compras</span>
             </div>
         </div>
     </div>

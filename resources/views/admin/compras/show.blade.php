@@ -47,7 +47,7 @@
                                         <td style="text-align: center;">{{$detalle->cantidad}}</td>
                                         <td style="text-align: center;">{{$detalle->producto->nombre}}</td>
                                         <td style="text-align: center;">
-                                            $ {{ number_format($detalle->precio_compra, 0, ',', '.') }}
+                                            $ {{ number_format($detalle->producto->precio_compra, 0, ',', '.') }}
                                         </td>
                                         <td style="text-align: center;">
                                             $ {{ number_format($costo = $detalle->cantidad * $detalle->producto->precio_compra, 0, ',', '.') }}
@@ -84,7 +84,7 @@
 
                             <div class="col-md-6">
                                 <label>Nombre proveedor</label>
-                                <input type="text" class="form-control" value="{{ $compra->detalles->first()->proveedor->empresa }}" disabled id="id_proveedor" name="proveedor_id">
+                                <input type="text" class="form-control" value="{{ $compra->proveedor->empresa }}" disabled id="id_proveedor" name="proveedor_id">
                             </div>
 
 

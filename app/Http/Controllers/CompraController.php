@@ -18,7 +18,7 @@ class CompraController extends Controller
     public function index()
     {
         //
-        $compras = Compra::with('detalles')->get();
+        $compras = Compra::with('detalles', 'proveedor')->get();
         return view('admin.compras.index', compact('compras'));
     }
 
@@ -60,7 +60,7 @@ class CompraController extends Controller
         $compra->fecha = $request->fecha;
         $compra->comprobante = $request->comprobante;
         $compra->precio_total = $request->precio_total;
-
+        $compra->proveedores_id = $request->proveedor_id;
         $compra->empresa_id = Auth::user()->empresa_id;
         $compra->save();
 
@@ -71,12 +71,11 @@ class CompraController extends Controller
             # code...
             $producto = Producto::where('id', $tmp_compra->producto_id)->first();
             $detalle_compra = new detalleCompra();
-
             $detalle_compra->cantidad = $tmp_compra->cantidad;
-            $detalle_compra->precio_compra = $producto->precio_compra;
+
             $detalle_compra->compra_id = $compra->id;
             $detalle_compra->producto_id = $tmp_compra->producto_id;
-            $detalle_compra->proveedores_id = $request->proveedor_id;
+
             $detalle_compra->save();
 
             $producto->stock += $tmp_compra->cantidad;
@@ -110,29 +109,67 @@ class CompraController extends Controller
     {
         //echo $id;
 
-        $compra = Compra::with('detalles','proveedor')->findOrFail($id);
+        $compra = Compra::with('detalles', 'proveedor')->findOrFail($id);
 
-        $proveedores =Proveedor::all();
+        $proveedores = Proveedor::all();
         $productos = Producto::all();
 
-        return view('admin.compras.edit', compact('compra','proveedores','productos'));
-       
+        return view('admin.compras.edit', compact('compra', 'proveedores', 'productos'));
     }
-        
+
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Compra $compra)
+    public function update(Request $request, $id)
     {
         //
+        /*
+        $datos = request()->all();
+        return response()->json($datos);
+        */
+        $request->validate([
+            'fecha' => 'required',
+            'comprobante' => 'required',
+            'precio_total' => 'required'
+        ]);
+
+
+
+        $compra = Compra::find($id);
+        $compra->fecha = $request->fecha;
+        $compra->comprobante = $request->comprobante;
+        $compra->precio_total = $request->precio_total;
+        $compra->proveedores_id = $request->proveedor_id;
+        $compra->empresa_id = Auth::user()->empresa_id;
+
+        $compra->save();
+
+        return redirect()->route('admin.compras.index')
+            ->with('mensaje', 'Se modifico la compra de la manera correcta')
+            ->with('icono', 'success');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Compra $compra)
+    public function destroy($id)
     {
         //
+        $compra = Compra::find($id);
+        foreach ($compra->detalles as $detalle) {
+            # code...
+            $producto = Producto::find($detalle->producto_id);
+            $producto->stock -= $detalle->cantidad;
+            $producto->save();
+        }
+
+        $compra->detalles()->delete();
+
+        $compra->delete();
+
+        return redirect()->route('admin.compras.index')
+            ->with('mensaje', 'La COMPRA FUE ELIMINADA !!! de manera correcta')
+            ->with('icono', 'success');
     }
 }

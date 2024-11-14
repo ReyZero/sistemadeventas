@@ -17,7 +17,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth()::routes();
+Auth::routes();
+
 
 Route::get('/home', [App\Http\Controllers\AdminController::class, 'index'])->name('home');
 
@@ -94,3 +95,9 @@ Route::delete('/admin/compras/{id}', [App\Http\Controllers\CompraController::cla
 //Rutas Temporales Compras
 Route::post('/admin/compras/create/tmp', [App\Http\Controllers\TmpCompraController::class, 'tmp_compras'])->name('admin.compras.tmp_compras')->middleware('auth');
 Route::delete('/admin/compras/create/tmp/{id}', [App\Http\Controllers\TmpCompraController::class, 'destroy'])->name('admin.compras.tmp_compras.destroy')->middleware('auth');
+
+
+
+//Rutas DETALLES Compras
+Route::post('/admin/compras/detalles/create', [App\Http\Controllers\DetalleCompraController::class, 'store'])->name('admin.detalle.compras.store')->middleware('auth');
+Route::delete('/admin/compras/detalle/{id}', [App\Http\Controllers\DetalleCompraController::class, 'destroy'])->name('admin.detalle.compras.destroy')->middleware('auth');

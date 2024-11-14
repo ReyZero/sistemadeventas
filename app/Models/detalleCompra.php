@@ -9,17 +9,16 @@ class detalleCompra extends Model
 {
     use HasFactory;
 
-    public function compra(){
+    public function compra()
+    {
         return $this->belongsTo(Compra::class);
     }
-
-     public function proveedor()
+    /*     public function proveedor()
     {
         return $this->belongsTo(Proveedor::class,'proveedores_id');
-    }
-    
-    public function producto(){
+    }    */
+    public function producto()
+    {
         return $this->belongsTo(Producto::class);
     }
-        
 }

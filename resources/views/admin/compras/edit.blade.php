@@ -19,7 +19,7 @@
                 <form action="{{url('/admin/compras',$compra->id)}}" id="form_compra" method="post">
                     @csrf
                     @method('PUT')
-
+                    <input type="text" value="{{$compra->id}}" id="id_compra" name="id_compra" hidden>
                     <div class="row">
                         <div class="col-md-8">
                             <div class="row">
@@ -100,43 +100,7 @@
                                                                     <td style="text-align:center; vertical-align:middle;">
                                                                         <img src="{{asset('storage/'.$producto->imagen)}}" alt="Imagen No Disponible" width="80px" style="border: 5px solid #00BC8C; box-shadow: 5px 0px 5px 0px #00BC8C;">
                                                                     </td>
-                                                                    <!---
-                                                                    <td style="text-align:center; vertical-align:middle;">
-                                                                        <div class="btn-group" role="group" aria-label="Basic example">
-                                                                            <a href="{{url('/admin/productos',$producto->id)}}" class="btn btn-success btn-sm" title="ver"><i class="fas fa-eye"></i></a>
-                                                                            <a href="{{url('admin/productos/'.$producto->id.'/edit')}}" type="button" class="btn btn-warning btn-sm" title="Editar"><i class="fas fa-pencil"></i></a>
-                                                                            <form action="{{ url('/admin/productos', $producto->id) }}" method="post" id="miFormulario{{$producto->id}}">
-                                                                                @csrf
-                                                                                @method('DELETE')
-                                                                                <button type="button" class="btn btn-danger btn-sm" title="Eliminar" id="deleteBtn{{$producto->id}}" style="border-radius:0px 5px 5px 0px">
-                                                                                    <i class="fas fa-trash"></i>
-                                                                                </button>
-                                                                            </form>
 
-                                                                            <script>
-                                                                                document.addEventListener('DOMContentLoaded', function() {
-                                                                                    const deleteButton = document.getElementById('deleteBtn{{$producto->id}}');
-                                                                                    deleteButton.addEventListener('click', function(event) {
-                                                                                        event.preventDefault();
-
-                                                                                        Swal.fire({
-                                                                                            title: '¿Desea ELIMINAR este registro?',
-                                                                                            icon: 'question',
-                                                                                            showDenyButton: true,
-                                                                                            confirmButtonText: 'Eliminar',
-                                                                                            denyButtonText: 'Cancelar',
-                                                                                        }).then((result) => {
-                                                                                            if (result.isConfirmed) {
-                                                                                                var form = document.getElementById('miFormulario{{$producto->id}}');
-                                                                                                form.submit();
-                                                                                            }
-                                                                                        });
-                                                                                    });
-                                                                                });
-                                                                            </script>
-                                                                        </div>
-                                                                    </td>
--->
                                                                 </tr>
                                                                 @endforeach
                                                             </tbody>
@@ -181,10 +145,10 @@
                                             <td style="text-align: center;">{{$detalle->cantidad}}</td>
                                             <td style="text-align: center;">{{$detalle->producto->nombre}}</td>
                                             <td style="text-align: center;">
-                                                $ {{ number_format($detalle->precio_compra, 0, ',', '.') }}
+                                                $ {{ number_format($detalle->producto->precio_compra, 0, ',', '.') }}
                                             </td>
                                             <td style="text-align: center;">
-                                                $ {{ number_format($costo = $detalle->cantidad * $detalle->precio_compra, 0, ',', '.') }}
+                                                $ {{ number_format($costo = $detalle->cantidad * $detalle->producto->precio_compra, 0, ',', '.') }}
                                             </td>
                                             <td style="text-align: center;">
                                                 <button type="button" class="btn btn-danger btn-sm delete-btn" data-id="{{$detalle->id}}" title="Eliminar">
@@ -285,8 +249,8 @@
 
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" disabled id="empresa_proveedor" name="empresa_proveedor" value="{{$detalle->proveedor->empresa }}" >
-                                    <input type="text" class="form-control" readonly id="id_proveedor" value="{{$detalle->proveedor->empresa }}" name="proveedor_id" hidden>
+                                    <input type="text" class="form-control" disabled id="empresa_proveedor" name="empresa_proveedor" value="{{$compra->proveedor->empresa }}">
+                                    <input type="text" class="form-control" id="id_proveedor" value="{{$compra ->proveedor->id }}" name="proveedor_id" hidden>
 
                                 </div>
                             </div>
@@ -322,7 +286,7 @@
                                             </div>
                                             <input type="text" style="text-align: center; background-color: #3c8dbc; border: 1px solid #8da5b8;"
                                                 class="form-control" name="precio_total" required
-                                                value="{{ number_format($total_compra, 0, ',', '.') }}">
+                                                value="{{$total_compra }}">
 
                                             @error('precio_total')
                                             <small style="color:red;">{{$message}}</small>
@@ -407,9 +371,11 @@
     /*Eliminar productos*/
     $('.delete-btn').click(function() {
         var id = $(this).data('id');
+        //alert(id)
+
         if (id) {
             $.ajax({
-                url: "{{url('/admin/compras/create/tmp')}}/" + id,
+                url: "{{url('/admin/compras/detalle')}}/" + id,
                 type: 'POST',
                 data: {
                     _token: '{{csrf_token()}}',
@@ -442,6 +408,7 @@
                 }
             });
         }
+
     });
 
 
@@ -458,15 +425,21 @@
         if (e.which === 13) {
             var codigo = $(this).val();
             var cantidad = $('#cantidad').val();
-            //alert(codigo);
+            var id_compra = $('#id_compra').val();
+            var id_proveedor = $('#id_proveedor').val();
+            //alert(id_proveedor);
+
+
             if (codigo.length > 0) {
                 $.ajax({
-                    url: "{{route('admin.compras.tmp_compras')}}",
+                    url: "{{route('admin.detalle.compras.store')}}",
                     method: 'POST',
                     data: {
                         _token: '{{csrf_token()}}',
                         codigo: codigo,
-                        cantidad: cantidad
+                        cantidad: cantidad,
+                        id_compra: id_compra,
+                        id_proveedor: id_proveedor
                     },
                     success: function(response) {
                         if (response.success) {
@@ -487,6 +460,7 @@
                     }
                 });
             }
+
         }
     });
 </script>
