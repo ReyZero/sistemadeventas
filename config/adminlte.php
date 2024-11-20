@@ -446,6 +446,21 @@ return [
 
             ],
         ],
+         /* Menu Ventas */
+         [
+            'text' => 'Ventas',
+            'icon' => 'fas fa-fw fa-cash-register',
+            'classes' => 'bg-blue text-white',
+            'submenu' => [
+                [
+                    'text' => 'Listado de Ventas',
+                    'url' => 'admin/ventas/',
+                    'classes' => 'bg-white text-gray-900',
+                ],
+
+
+            ],
+        ],
         /* ['header' => 'labels'],
         [
             'text' => 'important',

@@ -108,6 +108,20 @@
         </div>
     </div>
 
+    <!-- VENTAS -->
+    <div class="col-md-3 col-sm-6 col-12">
+        <div class="info-box zoomP" style="background: linear-gradient(135deg, #000000, #333333); border: 2px solid #800080; border-radius: 10px; transition: all 0.3s ease;">
+            <!-- Enlace con ícono y fondo morado -->
+            <a href="{{ url('/admin/ventas') }}" class="info-box-icon" style="color: #fff; background-color: #800080; border-radius: 50%; transition: background-color 0.3s ease; border: 2px solid #800080;">
+                <i class="fas fa-cash-register" style="color: #fff;"></i> <!-- Ícono blanco -->
+            </a>
+            <div class="info-box-content">
+                <span class="info-box-text" style="color: #fff;">Ventas registradas</span>
+                <span class="info-box-numbers" style="color: #fff;">{{ $total_ventas }} ventas</span>
+            </div>
+        </div>
+    </div>
+
 
 
 
