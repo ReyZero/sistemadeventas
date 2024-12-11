@@ -4,11 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Cliente;
 use App\Models\DetalleVenta;
+use App\Models\Empresa;
 use App\Models\Producto;
 use App\Models\TmpVenta;
 use App\Models\Venta;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Nnjeim\World\Models\Currency;
+use NumberToWords\NumberToWords;
+use NumberFormatter;
 
 class VentaController extends Controller
 {
@@ -117,6 +123,43 @@ class VentaController extends Controller
     /**
      * Display the specified resource.
      */
+
+    public function pdf($id)
+    {
+        //echo $id;
+        function numeroALetrasConDecimales($numero)
+        {
+            $formatter = new NumberFormatter('es', NumberFormatter::SPELLOUT);
+
+            $partes = explode('.', number_format($numero, 2, '.', ''));
+
+            $entero = $formatter->format($partes[0]);
+            $decimal = $formatter->format($partes[1]);
+
+            return ucfirst("$entero con $decimal");
+        }
+        /*
+*/
+
+
+        $id_empresa = Auth::user()->empresa_id;
+        $empresa = Empresa::where('id', $id_empresa)->first();
+        $moneda = Currency::find($empresa->moneda);
+        $moneda->symbol;
+        $ventas = Venta::with('detalleVenta', 'cliente')->findOrFail($id);
+
+        $numero = $ventas->precio_total;
+        $literal = numeroALetrasConDecimales($numero);
+
+
+
+
+        $pdf = PDF::loadView('admin.ventas.pdf', compact('empresa', 'ventas', 'moneda', 'literal'));
+        return $pdf->stream();
+    }
+
+
+
     public function show($id)
     {
         // echo $id;
@@ -181,7 +224,7 @@ class VentaController extends Controller
 
         Venta::destroy($id);
         return redirect()->route('admin.ventas.index')
-        ->with('mensaje','Se ELIMINO!!! la venta de la manera correcta')
-        ->with('icono','success');
+            ->with('mensaje', 'Se ELIMINO!!! la venta de la manera correcta')
+            ->with('icono', 'success');
     }
 }

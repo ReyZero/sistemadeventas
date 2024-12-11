@@ -23,7 +23,7 @@
                         <tr>
                             <th scope="col">Nro</th>
                             <th scope="col">Fecha de ventas</th>
-                        
+
                             <th scope="col">Precio total de la venta</th>
                             <th scope="col">Productos</th>
                             <th scope="col" style="text-align:center;">Acciones</th>
@@ -40,7 +40,7 @@
                             <td style="text-align:center; vertical-align:middle;">
                                 {{ \Carbon\Carbon::parse($venta->fecha)->format('d-m-Y') }}
                             </td>
-                            
+
                             <td style="text-align:center; vertical-align:middle;">
                                 $ {{ number_format($venta->precio_total, 0, ',', '.') }}
                             </td>
@@ -55,6 +55,7 @@
 
                             <td style="text-align:center; vertical-align:middle;">
                                 <div class="btn-group" role="group" aria-label="Basic example">
+                                    <a href="{{url('/admin/ventas/pdf',$venta->id)}}" target="_blank" class="btn btn-primary btn-sm" title="Comprobante venta"><i class="fas fa-print"></i></a>
                                     <a href="{{url('/admin/ventas',$venta->id)}}" class="btn btn-success btn-sm" title="ver"><i class="fas fa-eye"></i></a>
                                     <a href="{{url('admin/ventas/'.$venta->id.'/edit')}}" type="button" class="btn btn-warning btn-sm" title="Editar"><i class="fas fa-pencil"></i></a>
                                     <form action="{{ url('/admin/ventas', $venta->id) }}" method="post" id="miFormulario{{$venta->id}}">

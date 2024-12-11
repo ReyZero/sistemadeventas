@@ -24,3 +24,15 @@ php artisan view:clear
 php artisan config:cache
 php artisan route:cache
 php artisan view:cache
+
+para instalacion de <button
+    
+ 
+    composer require barryvdh/laravel-dompdf
+
+    php artisan vendor:publish --provider="Barryvdh\DomPDF\ServiceProvider"
+
+para pasar numeros a texto
+composer require kwn /number-to-words
+
+
