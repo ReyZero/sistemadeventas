@@ -446,15 +446,30 @@ return [
 
             ],
         ],
-         /* Menu Ventas */
+        /* Menu Ventas */
         [
             'text' => 'Ventas',
-            'icon' => 'fas fa-fw fa-cash-register',
+            'icon' => 'fas fa-fw fa-money-bill',
             'classes' => 'bg-blue text-white',
             'submenu' => [
                 [
                     'text' => 'Listado de Ventas',
                     'url' => 'admin/ventas/',
+                    'classes' => 'bg-white text-gray-900',
+                ],
+
+
+            ],
+        ],
+        /* Menu Arqueos */
+        [
+            'text' => 'Arqueo',
+            'icon' => 'fas fa-fw fa-cash-register',
+            'classes' => 'bg-blue text-white',
+            'submenu' => [
+                [
+                    'text' => 'Listado de Arqueos',
+                    'url' => 'admin/arqueos/',
                     'classes' => 'bg-white text-gray-900',
                 ],
 
