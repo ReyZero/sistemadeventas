@@ -56,7 +56,7 @@
                 <div class="row">
                     <div class="col-md-12 d-flex justify-content-center">
                         <div class="form-group">
-                        <a href="{{url('/admin/arqueos')}}" type="submit" class="btn btn-secondary" style="background-color: secondary; color:white;"><i class="fas fa-undo"></i> volver</a>
+                            <a href="{{url('/admin/arqueos')}}" type="submit" class="btn btn-secondary" style="background-color: secondary; color:white;"><i class="fas fa-undo"></i> volver</a>
 
                         </div>
                     </div>
@@ -110,7 +110,7 @@
                 <div class="row">
                     <div class="col-md-12 d-flex justify-content-center">
                         <div class="form-group">
-                           
+
                         </div>
                     </div>
                 </div>
