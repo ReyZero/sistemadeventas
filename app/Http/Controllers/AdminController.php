@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Arqueo;
 use App\Models\Categoria;
 use App\Models\Cliente;
 use App\Models\Compra;
@@ -23,16 +24,26 @@ class AdminController extends Controller
         $total_usuarios = User::count();
         $total_categorias = Categoria::count();
         $total_productos = Producto::count();
-        $total_proveedores= Proveedor::count();
+        $total_proveedores = Proveedor::count();
         $total_compras = Compra::count();
-        $total_clientes = Cliente::count(); 
+        $total_clientes = Cliente::count();
         $total_ventas = Venta::count();
-//esta paso es en caso que el sistema se desconecte por cualquier razon y pierda el usuario, nos enviara a login
+        $total_arqueos = Arqueo::count();
+        //esta paso es en caso que el sistema se desconecte por cualquier razon y pierda el usuario, nos enviara a login
         $empresa_id = Auth::check() ?  Auth::user()->empresa_id : redirect()->route('login')->send();
 
         $empresa = Empresa::where('id', $empresa_id)->first();
-        return view('admin.index', compact('empresa', 'total_roles',
-         'total_usuarios', 'total_categorias', 'total_productos','total_proveedores','total_compras',
-        'total_clientes', 'total_ventas'));
+        return view('admin.index', compact(
+            'empresa',
+            'total_roles',
+            'total_usuarios',
+            'total_categorias',
+            'total_productos',
+            'total_proveedores',
+            'total_compras',
+            'total_clientes',
+            'total_ventas',
+            'total_arqueos'
+        ));
     }
 }

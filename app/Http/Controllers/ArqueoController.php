@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Arqueo;
+use App\Models\Empresa;
 use App\Models\MovimientoCaja;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Contracts\Service\Attribute\Required;
@@ -71,9 +73,9 @@ class ArqueoController extends Controller
     //echo $id;
     {
         $arqueo = Arqueo::find($id)->first();
-        $movimientos = MovimientoCaja::where('arqueo_id',$id)->get();
+        $movimientos = MovimientoCaja::where('arqueo_id', $id)->get();
 
-        return view('admin.arqueos.show', compact('arqueo','movimientos'));
+        return view('admin.arqueos.show', compact('arqueo', 'movimientos'));
     }
 
     /**
@@ -179,5 +181,21 @@ class ArqueoController extends Controller
         return redirect()->route('admin.arqueos.index')
             ->with('mensaje', 'Se ELIMINO la CAJA de la manera correcta')
             ->with('icono', 'success');
+    }
+
+    public function reporte()
+    {
+
+        $empresa = Empresa::where('id', Auth::user()->empresa_id)->first();
+
+        $arqueos = Arqueo::with('movimientos')->get();
+
+        foreach ($arqueos as $arqueo) {
+            $arqueo->total_ingresos = $arqueo->movimientos->where('tipo', 'INGRESO')->sum('monto');
+            $arqueo->total_egresos = $arqueo->movimientos->where('tipo', 'EGRESO')->sum('monto');
+        }
+        $pdf = Pdf::loadView('admin.arqueos.reporte', compact('arqueos', 'empresa'))
+            ->setPaper('letter', 'landscape');
+        return $pdf->stream();
     }
 }

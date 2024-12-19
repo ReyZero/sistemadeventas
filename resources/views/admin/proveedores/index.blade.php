@@ -14,6 +14,8 @@
             <div class="card-header">
                 <h3 class="card-title">Proveedores Registradas</h3>
                 <div class="card-tools">
+                <a href="{{url('admin/proveedores/reporte')}}" target="_blank" class="btn btn-danger" style="background-color: #007BFF; color:white;"><i class="fa fa-file-pdf"> </i> Reporte de proveedores</a>
+
                     <a href="{{url('admin/proveedores/create')}}" class="btn btn-008000" style="background-color: #008000 ; color:white;"><i class="fa fa-plus"></i> Crear nuevo</a>
                 </div>
             </div>
@@ -46,13 +48,13 @@
                             <td style="text-align:center; vertical-align:middle;">{{$proveedore->telefono}}</td>
                             <td style="text-align:center; vertical-align:middle;">{{$proveedore->email}}</td>
                             <td style="text-align:center; vertical-align:middle;">{{$proveedore->nombre}}</td>
-                            
+
                             <td style="text-align:center; vertical-align:middle;">
                                 <!-- Enlace a WhatsApp con icono -->
-                                <a href="https://wa.me/{{$empresa->codigo_postal."".$proveedore->celular}}" target="_blank" class="btn btn-success"><i class="fab fa-whatsapp" ></i>
-                                {{$empresa->codigo_postal."".$proveedore->celular}}
+                                <a href="https://wa.me/{{$empresa->codigo_postal."".$proveedore->celular}}" target="_blank" class="btn btn-success"><i class="fab fa-whatsapp"></i>
+                                    {{$empresa->codigo_postal."".$proveedore->celular}}
                                 </a>
-                                 
+
                             </td>
 
 

@@ -15,7 +15,8 @@
             <div class="card-header">
                 <h3 class="card-title">Roles Registrado</h3>
                 <div class="card-tools">
-                    <a href="{{url('admin/roles/create')}}" class="btn btn-warning" style="background-color: #FD7E14; color:white;"><i class="fa fa-plus"></i> Crear nuevo</a>
+                <a href="{{url('admin/roles/reporte')}}" target="_blank" class="btn btn-danger" style="background-color: #007BFF; color:white;"><i class="fa fa-file-pdf"> </i> Reporte de Roles</a>
+                <a href="{{url('admin/roles/create')}}" class="btn btn-warning" style="background-color: #FD7E14; color:white;"><i class="fa fa-plus"></i> Crear nuevo</a>
                 </div>
             </div>
             <div class="card-body">

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Empresa;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Session;
@@ -67,8 +69,8 @@ class RoleController extends Controller
         //
         /*
         echo $id;
-         $datos= $request->all();
-         return response()->json($datos);
+        $datos= $request->all();
+        return response()->json($datos);
          */
 
         $role = Role::find($id);
@@ -94,8 +96,8 @@ class RoleController extends Controller
         //
         /*
         echo $id;
-         $datos= $request->all();
-         return response()->json($datos);
+        $datos= $request->all();
+        return response()->json($datos);
          */
         $this->validate($request, [
             'name' => 'required|unique:roles,name,' . $id,
@@ -123,7 +125,16 @@ class RoleController extends Controller
 
         Role::destroy($id);
         return redirect()->route('admin.roles.index')
-        ->with('mensaje','Se ELIMINO el Rol de la manera correcta')
-        ->with('icono','success');
+            ->with('mensaje', 'Se ELIMINO el Rol de la manera correcta')
+            ->with('icono', 'success');
+    }
+
+    public function reporte()
+    {
+
+        $empresa = Empresa::where('id', Auth::user()->empresa_id)->first();
+        $roles = Role::all();
+        $pdf = PDF::loadView('admin.roles.reporte', compact('roles', 'empresa'));
+        return $pdf->stream();
     }
 }

@@ -15,6 +15,8 @@
             <div class="card-header">
                 <h3 class="card-title">Clientes Registrado</h3>
                 <div class="card-tools">
+                <a href="{{url('admin/clientes/reporte')}}" target="_blank" class="btn btn-danger" style="background-color: #007BFF; color:white;"><i class="fa fa-file-pdf"> </i> Reporte de Clientes</a>
+
                     <a href="{{url('admin/clientes/create')}}" class="btn btn-danger" style="background-color: red; color:white;"><i class="fa fa-plus"></i> Crear nuevo</a>
                 </div>
             </div>

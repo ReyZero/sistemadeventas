@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categoria;
+use App\Models\Empresa;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -81,7 +83,7 @@ class CategoriaController extends Controller
     {
         //
         /*
-               $datos = request()->all();
+        $datos = request()->all();
         return response()->json($datos);
         
         */
@@ -110,5 +112,14 @@ class CategoriaController extends Controller
         return redirect()->route('admin.categorias.index')
         ->with('mensaje','se ELIMINO la categoria de la manera correcta')
         ->with('icono','success');
+    }
+
+    public function reporte()
+    {
+
+        $empresa = Empresa::where('id', Auth::user()->empresa_id)->first();
+        $categorias = Categoria::all();
+        $pdf = Pdf::loadView('admin.categorias.reporte', compact('categorias', 'empresa'));
+        return $pdf->stream();
     }
 }

@@ -131,7 +131,7 @@
         </a>
         <div class="info-box-content">
             <span class="info-box-text" style="color: #fff;">Arqueo registrado</span>
-            <span class="info-box-numbers" style="color: #fff;">{{ $total_ventas }} arqueos</span>
+            <span class="info-box-numbers" style="color: #fff;">{{ $total_arqueos }} Arqueos de Cajas</span>
         </div>
     </div>
 </div>

@@ -15,6 +15,7 @@
             <div class="card-header">
                 <h3 class="card-title">Usuarios Registrados</h3>
                 <div class="card-tools">
+                    <a href="{{url('admin/usuarios/reporte')}}" target="_blank" class="btn btn-danger" style="background-color: #007BFF; color:white;"><i class="fa fa-file-pdf"> </i> Reporte de Usuarios</a>
                     <a href="{{url('admin/usuarios/create')}}" class="btn btn-warning" style="background-color: #CD5C5C; color:white;"><i class="fa fa-plus"></i> Crear nuevo</a>
                 </div>
             </div>

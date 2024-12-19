@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Empresa;
 use App\Models\Proveedor;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,8 +17,8 @@ class ProveedorController extends Controller
     {
         //
         $proveedores = Proveedor::all();
-     $empresa = Empresa::where('id',Auth::user()->id)->first();
-        return view('admin.proveedores.index', compact('proveedores','empresa'));
+        $empresa = Empresa::where('id', Auth::user()->id)->first();
+        return view('admin.proveedores.index', compact('proveedores', 'empresa'));
     }
 
     /**
@@ -75,7 +76,7 @@ class ProveedorController extends Controller
     {
         //echo $id;
         $proveedor = Proveedor::find($id);
-        
+
         return view('admin.proveedores.show', compact('proveedor'));
     }
 
@@ -140,5 +141,15 @@ class ProveedorController extends Controller
         return redirect()->route('admin.proveedores.index')
             ->with('mensaje', 'el PROVEEDOR fue eliminaro de la manera correcta')
             ->with('icono', 'success');
+    }
+
+    public function reporte()
+    {
+
+        $empresa = Empresa::where('id', Auth::user()->empresa_id)->first();
+        $proveedores = Proveedor::all();
+        $pdf = Pdf::loadView('admin.proveedores.reporte', compact('proveedores', 'empresa'))
+            ->setPaper('letter', 'landscape');
+        return $pdf->stream();
     }
 }

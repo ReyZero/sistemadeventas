@@ -246,4 +246,14 @@ class VentaController extends Controller
             ->with('mensaje', 'Se ELIMINO!!! la venta de la manera correcta')
             ->with('icono', 'success');
     }
+
+    public function reporte()
+    {
+
+        $empresa = Empresa::where('id', Auth::user()->empresa_id)->first();
+        $ventas = Venta::with('cliente')->get();
+        $pdf = Pdf::loadView('admin.ventas.reporte', compact('ventas', 'empresa'))
+        ->setPaper('letter', 'landscape');
+        return $pdf->stream();
+    }
 }

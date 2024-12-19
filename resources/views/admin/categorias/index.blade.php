@@ -14,6 +14,7 @@
             <div class="card-header">
                 <h3 class="card-title">Categorias Registradas</h3>
                 <div class="card-tools">
+                    <a href="{{url('admin/categorias/reporte')}}" target="_blank" class="btn btn-danger" style="background-color: #007BFF; color:white;"><i class="fa fa-file-pdf"> </i> Reporte de Categorias</a>
                     <a href="{{url('admin/categorias/create')}}" class="btn btn-8A2BE2" style="background-color: #8A2BE2 ; color:white;"><i class="fa fa-plus"></i> Crear nuevo</a>
                 </div>
             </div>
@@ -37,7 +38,7 @@
                             <td>{{$contador++}}</td>
                             <td>{{$categoria->nombre}}</td>
                             <td>{{$categoria->descripcion}}</td>
-                            
+
                             <td style="text-align:center;">
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <a href="{{url('/admin/categorias',$categoria->id)}}" class="btn btn-success btn-sm" title="ver"><i class="fas fa-eye"></i></a>
@@ -54,7 +55,7 @@
                                         document.addEventListener('DOMContentLoaded', function() {
                                             const deleteButton = document.getElementById('deleteBtn{{$categoria->id}}');
                                             deleteButton.addEventListener('click', function(event) {
-                                                event.preventDefault(); 
+                                                event.preventDefault();
 
                                                 Swal.fire({
                                                     title: '¿Desea ELIMINAR este registro? Si eliminas este CATEGORIA, los productos se ELIMINARAN',
@@ -62,7 +63,7 @@
                                                     showDenyButton: true,
                                                     confirmButtonText: 'Eliminar',
                                                     denyButtonText: 'Cancelar',
-                                                }).then((result) => { 
+                                                }).then((result) => {
                                                     if (result.isConfirmed) {
                                                         var form = document.getElementById('miFormulario{{$categoria->id}}');
                                                         form.submit();

@@ -14,13 +14,14 @@
             <div class="card-header">
                 <h3 class="card-title">Ventas Registradas</h3>
                 <div class="card-tools">
+                    <a href="{{url('admin/ventas/reporte')}}" target="_blank" class="btn btn-danger" style="background-color: #007BFF; color:white;"><i class="fa fa-file-pdf"> </i> Reporte de Ventas</a>
 
                     @if($arqueoAbierto)
 
                     <a href="{{url('admin/ventas/create')}}" class="btn btn-warning" style="background-color: warning ; color:white;"><i class="fa fa-plus"></i> Crear nuevo</a>
                     @else
-                    <a href="{{url('admin/arqueos/create')}}" class="btn btn-danger" style="background-color: warning ; color:white;"><i class="fa fa-cash-register"></i>  Abrir Caja</a>
-                    
+                    <a href="{{url('admin/arqueos/create')}}" class="btn btn-danger" style="background-color: warning ; color:white;"><i class="fa fa-cash-register"></i> Abrir Caja</a>
+
                     @endif
 
                 </div>

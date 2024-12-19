@@ -14,6 +14,8 @@
             <div class="card-header">
                 <h3 class="card-title">Productos Registradas</h3>
                 <div class="card-tools">
+                <a href="{{url('admin/productos/reporte')}}" target="_blank" class="btn btn-danger" style="background-color: #007BFF; color:white;"><i class="fa fa-file-pdf"> </i> Reporte de Productos</a>
+
                     <a href="{{url('admin/productos/create')}}" class="btn btn-8A2BE2" style="background-color: #4A90E2 ; color:white;"><i class="fa fa-plus"></i> Crear nuevo</a>
                 </div>
             </div>

@@ -16,10 +16,14 @@
                 <h3 class="card-title">Arqueos Registrados</h3>
                 <div class="card-tools">
                     @if($arqueoAbierto)
+                    <a href="{{url('admin/arqueos/reporte')}}" target="_blank" class="btn btn-danger" style="background-color: #007BFF; color:white;"><i class="fa fa-file-pdf"> </i> Reporte de Arqueo de Cajas</a>
+
                     <div style="background-color: #28a745; color: white; padding: 10px; border-radius: 5px; text-align: center; font-weight: bold;">
                         <i class="fas fa-cash-register"></i> Caja Abierta
                     </div>
                     @else
+                    <a href="{{url('admin/arqueos/reporte')}}" target="_blank" class="btn btn-danger" style="background-color: #007BFF; color:white;"><i class="fa fa-file-pdf"> </i> Reporte de Arqueo de Cajas</a>
+
                     <a href="{{url('admin/arqueos/create')}}" class="btn btn-danger" style="background-color: warning ; color:white;"><i class="fa fa-cash-register"></i> Abrir Caja</a>
 
                     @endif
