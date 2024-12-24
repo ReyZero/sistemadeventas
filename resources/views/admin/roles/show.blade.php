@@ -16,25 +16,25 @@
                 <h3 class="card-title">Datos Registrados</h3>
             </div>
             <div class="card-body">
-              
-                    
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="name">Nombre del Rol</label>
-                                <p>{{$role->name}}</p>
-                            </div>
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="name">Nombre del Rol</label>
+                            <p>{{$role->name}}</p>
                         </div>
                     </div>
-                    <hr style="background-color: #00BC8C;">
-                    <div class="row">
-                        <div class="col-md-12 d-flex justify-content-center">
-                            <div class="form-group">
-                                <a href="{{url('/admin/roles')}}" type="submit" class="btn btn-secondary" style="background-color: secondary; color:white;"><i class="fas fa-undo"></i>  volver</a>
-                            </div>
+                </div>
+                <hr style="background-color: #00BC8C;">
+                <div class="row">
+                    <div class="col-md-12 d-flex justify-content-center">
+                        <div class="form-group">
+                            <a href="{{url('/admin/roles')}}" type="submit" class="btn btn-secondary" style="background-color: secondary; color:white;"><i class="fas fa-undo"></i> volver</a>
                         </div>
                     </div>
-               
+                </div>
+
             </div>
         </div>
     </div>

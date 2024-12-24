@@ -337,7 +337,7 @@ return [
             'text' => 'configuración',
             'url' => 'admin/configuracion',
             'icon' => 'fas fa-fw fa-gear',
-            'classes' => 'bg-blue text-white',
+            'classes' => 'bg-red  ue text-white',
         ],
         /* Menu Roles */
         [
@@ -354,7 +354,21 @@ return [
 
             ],
         ],
+        /* Menu Permisos */
+        [
+            'text' => 'Permisos',
+            'icon' => 'fas fa-fw fa-key',
+            'classes' => 'bg-indigo  text-white',
+            'submenu' => [
+                [
+                    'text' => 'Listado de Permisos',
+                    'url' => 'admin/permisos/',
+                    'classes' => 'bg-white text-gray-900',
+                ],
 
+
+            ],
+        ],
         /* Menu Usuarios */
         [
             'text' => 'Usuarios',

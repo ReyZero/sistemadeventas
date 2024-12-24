@@ -13,6 +13,7 @@ use App\Models\User;
 use App\Models\Venta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class AdminController extends Controller
@@ -29,6 +30,7 @@ class AdminController extends Controller
         $total_clientes = Cliente::count();
         $total_ventas = Venta::count();
         $total_arqueos = Arqueo::count();
+        $total_permisos = Permission::count();
         //esta paso es en caso que el sistema se desconecte por cualquier razon y pierda el usuario, nos enviara a login
         $empresa_id = Auth::check() ?  Auth::user()->empresa_id : redirect()->route('login')->send();
 
@@ -43,7 +45,8 @@ class AdminController extends Controller
             'total_compras',
             'total_clientes',
             'total_ventas',
-            'total_arqueos'
+            'total_arqueos',
+            'total_permisos'
         ));
     }
 }

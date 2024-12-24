@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Spatie\Permission\Models\Permission;
 
 class RoleController extends Controller
 {
@@ -136,5 +137,13 @@ class RoleController extends Controller
         $roles = Role::all();
         $pdf = PDF::loadView('admin.roles.reporte', compact('roles', 'empresa'));
         return $pdf->stream();
+    }
+
+    public function asignar($id)
+    {
+        //echo $id;
+        $rol = Role::find($id);
+        $permisos = Permission::all();
+        return view('admin.roles.asignar', compact('permisos','rol'));
     }
 }

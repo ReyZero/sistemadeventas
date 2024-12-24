@@ -23,6 +23,21 @@
         </div>
     </div>
 
+
+    <!-- PERMISOS -->
+    <div class="col-md-3 col-sm-6 col-12">
+        <div class="info-box zoomP" style="background: linear-gradient(135deg, #4B0082, #6A5ACD); border: 3px solid #FFD700; border-radius: 12px; transition: all 0.3s ease;">
+            <!-- Enlace con ícono y fondo dorado -->
+            <a href="{{ url('/admin/permisos') }}" class="info-box-icon" style="color: #fff; background-color: #FFD700; border-radius: 50%; transition: background-color 0.3s ease; border: 3px solid #FFD700;">
+                <i class="fas fa-key" style="color: #4B0082;"></i> <!-- Ícono con color personalizado -->
+            </a>
+            <div class="info-box-content">
+                <span class="info-box-text" style="color: #fff;">Permisos configurados</span>
+                <span class="info-box-numbers" style="color: #fff;">{{ $total_permisos }} permisos</span>
+            </div>
+        </div>
+    </div>
+
     <!-- USUARIOS -->
     <div class="col-md-3 col-sm-6 col-12">
         <div class="info-box zoomP" style="background: linear-gradient(135deg, #000000, #333333); border: 2px solid #28a745; border-radius: 10px; transition: all 0.3s ease;">
@@ -122,19 +137,22 @@
         </div>
     </div>
 
-<!-- ARQUEO -->
-<div class="col-md-3 col-sm-6 col-12">
-    <div class="info-box zoomP" style="background: linear-gradient(135deg, #000000, #4B5320); border: 2px solid #FFD700; border-radius: 10px; transition: all 0.3s ease;">
-        <!-- Enlace con ícono y fondo dorado -->
-        <a href="{{ url('/admin/arqueos') }}" class="info-box-icon" style="color: #fff; background-color: #FFD700; border-radius: 50%; transition: background-color 0.3s ease; border: 2px solid #FFD700;">
-            <i class="fas fa-cash-register" style="color: #fff;"></i> <!-- Ícono blanco -->
-        </a>
-        <div class="info-box-content">
-            <span class="info-box-text" style="color: #fff;">Arqueo registrado</span>
-            <span class="info-box-numbers" style="color: #fff;">{{ $total_arqueos }} Arqueos de Cajas</span>
+    <!-- ARQUEO -->
+    <div class="col-md-3 col-sm-6 col-12">
+        <div class="info-box zoomP" style="background: linear-gradient(135deg, #000000, #4B5320); border: 2px solid #FFD700; border-radius: 10px; transition: all 0.3s ease;">
+            <!-- Enlace con ícono y fondo dorado -->
+            <a href="{{ url('/admin/arqueos') }}" class="info-box-icon" style="color: #fff; background-color: #FFD700; border-radius: 50%; transition: background-color 0.3s ease; border: 2px solid #FFD700;">
+                <i class="fas fa-cash-register" style="color: #fff;"></i> <!-- Ícono blanco -->
+            </a>
+            <div class="info-box-content">
+                <span class="info-box-text" style="color: #fff;">Arqueo registrado</span>
+                <span class="info-box-numbers" style="color: #fff;">{{ $total_arqueos }} Arqueos de Cajas</span>
+            </div>
         </div>
     </div>
-</div>
+
+
+
 
 
 
