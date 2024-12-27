@@ -14,31 +14,46 @@
             <div class="card-header" style="background-color: #20B2AA; color: white;">
                 <h3 class="card-title">Permisos Registrados para: <b>{{$rol->name}}</b></h3>
             </div>
-            <div class="card-body">
-                <!-- Checkbox para seleccionar/deseleccionar todos -->
-                <div class="form-check mb-3">
-                    <input class="form-check-input" type="checkbox" id="selectAll">
-                    <label class="form-check-label" for="selectAll">Seleccionar/Deseleccionar todos</label>
-                </div>
+            <form action="{{url('/admin/roles/asignar',$rol->id)}}" method="post">
+                @csrf
+                @method('PUT')
 
-                <!-- Lista de permisos en múltiples columnas -->
-                <div class="row">
-                    @foreach ($permisos as $index => $permiso)
-                    <div class="col-md-4"> <!-- Tres columnas por fila -->
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="permisos[]" value="{{$permiso->name}}">
-                            <label class="form-check-label">{{$permiso->name}}</label>
-                        </div>
+                <div class="card-body">
+                    <!-- Checkbox para seleccionar/deseleccionar todos -->
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="selectAll">
+                        <label class="form-check-label" for="selectAll">Seleccionar/Deseleccionar todos</label>
                     </div>
-                    @endforeach
+
+                    <!-- Lista de permisos en múltiples columnas -->
+                    <div class="row">
+                        @foreach ($permisos as $modulo =>$gurpoPermisos )
+                        <div class="col-md-4">
+                            <h3>{{$modulo}}</h3>
+                            @foreach ($gurpoPermisos as $permiso)
+                            <div class="col-md-4"> <!-- Tres columnas por fila -->
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="permisos[]"
+                                        value="{{$permiso->id}}" {{$rol->hasPermissionTo($permiso->name) ? 'checked':''}}>
+                                    <label class="form-check-label">{{$permiso->name}}</label>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                        @endforeach
+                        <hr style="background-color: #6A5ACD; height: 2px; border: none;">
+                    </div>
+
+                    <!-- Botón Guardar -->
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-teal"><i class="fas fa-save"></i> Guardar permisos asignados</button>
+                        <a href="{{url('/admin/roles')}}" type="submit" class="btn btn-secondary" style="background-color: secondary; color:white;"><i class="fas fa-undo"></i> volver</a>
+                    </div>
                 </div>
 
-                <!-- Botón Guardar -->
-                <div class="text-center mt-4">
-                    <button type="submit" class="btn btn-teal"><i class="fas fa-save"></i> Guardar permisos asignados</button>
-                    <a href="{{url('/admin/roles')}}" type="submit" class="btn btn-secondary" style="background-color: secondary; color:white;"><i class="fas fa-undo"></i> volver</a>
-                </div>
-            </div>
+
+            </form>
+
         </div>
     </div>
 </div>
@@ -64,6 +79,18 @@
 @stop
 
 @section('js')
+
+@if ((($mensaje=Session::get('mensaje')) &&(($icono=Session::get('icono')))))
+<script>
+    Swal.fire({
+        position: "top-end",
+        icon: "{{$icono}}",
+        title: "{{$mensaje}}",
+        showConfirmButton: false,
+        timer: 2500
+    });
+</script>
+@endif
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const selectAllCheckbox = document.getElementById('selectAll');

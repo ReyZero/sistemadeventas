@@ -141,9 +141,53 @@ class RoleController extends Controller
 
     public function asignar($id)
     {
+
         //echo $id;
         $rol = Role::find($id);
-        $permisos = Permission::all();
-        return view('admin.roles.asignar', compact('permisos','rol'));
+
+        $permisos = Permission::all()->groupBy(function ($permiso) {
+            if (stripos($permiso->name, 'config') !== false) {
+                return 'Configuración';
+            } elseif (stripos($permiso->name, 'rol') !== false) {
+                return 'Roles';
+            } elseif (stripos($permiso->name, 'permi') !== false) {
+                return 'Permisos';
+            } elseif (stripos($permiso->name, 'usu') !== false) {
+                return 'Usuarios';
+            } elseif (stripos($permiso->name, 'cat') !== false) {
+                return 'Categorias';
+            } elseif (stripos($permiso->name, 'prod') !== false) {
+                return 'Productos';
+            } elseif (stripos($permiso->name, 'prov') !== false) {
+                return 'Proveedores';
+            } elseif (stripos($permiso->name, 'comp') !== false) {
+                return 'Compras';
+            } elseif (stripos($permiso->name, 'cli') !== false) {
+                return 'Clientes';
+            } elseif (stripos($permiso->name, 'ven') !== false) {
+                return 'Ventas';
+            } elseif (stripos($permiso->name, 'arq') !== false) {
+                return 'Arqueo';
+            }
+        });
+        return view('admin.roles.asignar', compact('permisos', 'rol'));
+    }
+
+    public function update_asignar(Request $request,  $id)
+    {
+        /*
+        $datos = $request->all();
+        return response()->json($datos);
+        $request->validate([
+            'permisos' => 'required|array'
+        ]);
+        */
+
+        $rol = Role::find($id);
+
+        $rol->permissions()->sync($request->input('permisos'));
+
+        return redirect()->back()->with('mensaje', 'Se asignaron los permisos al rol, de la manera correcta')
+            ->with('icono', 'success');
     }
 }
