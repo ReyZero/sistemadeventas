@@ -10,7 +10,7 @@
 
 @section('content')
 <div class="row justify-content-center">
-    <div class="col-md-6">
+    <div class="col-md-8">
         <div class="card card-outline card-red">
             <div class="card-header">
                 <h3 class="card-title">Usuarios Registrados</h3>
@@ -24,9 +24,9 @@
                     <thead class="thead-light">
                         <tr>
                             <th scope="col">Nro</th>
+                            <th scope="col">nombre Rol</th>
                             <th scope="col">nombre usuario</th>
                             <th scope="col">Email</th>
-
                             <th scope="col" style="text-align:center;">Acciones</th>
 
                         </tr>
@@ -45,6 +45,9 @@
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <a href="{{url('/admin/usuarios',$usuario->id)}}" class="btn btn-success btn-sm" title="ver"><i class="fas fa-eye"></i></a>
                                     <a href="{{url('admin/usuarios/'.$usuario->id.'/edit')}}" type="button" class="btn btn-warning btn-sm" title="Editar"><i class="fas fa-pencil"></i></a>
+                                    @if ($usuario->name !=='Admin')
+
+
                                     <form action="{{ url('/admin/usuarios', $usuario->id) }}" method="post" id="miFormulario{{$usuario->id}}">
                                         @csrf
                                         @method('DELETE')
@@ -76,13 +79,15 @@
                                                     if (result.isConfirmed) {
                                                         // Si el usuario confirma, enviar el formulario manualmente
                                                         var form = document.getElementById('miFormulario{{$usuario->id}}');
+
+
                                                         form.submit(); // Enviar el formulario
                                                     }
                                                 });
                                             });
                                         });
                                     </script>
-
+                                    @endif
 
                                 </div>
                             </td>

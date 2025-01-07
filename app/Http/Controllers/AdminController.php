@@ -21,16 +21,19 @@ class AdminController extends Controller
     //
     public function index()
     {
-        $total_roles = Role::count();
-        $total_usuarios = User::count();
-        $total_categorias = Categoria::count();
-        $total_productos = Producto::count();
-        $total_proveedores = Proveedor::count();
-        $total_compras = Compra::count();
-        $total_clientes = Cliente::count();
-        $total_ventas = Venta::count();
-        $total_arqueos = Arqueo::count();
+        $empresa_id = Auth::check() ?  Auth::user()->empresa_id : redirect()->route('login')->send();
+        $total_roles = Role::where('empresa_id', $empresa_id)->count();
+        $total_usuarios = User::where('empresa_id', $empresa_id)->count();
+        $total_categorias = Categoria::where('empresa_id', $empresa_id)->count();
+        $total_productos = Producto::where('empresa_id', $empresa_id)->count();
+        $total_proveedores = Proveedor::where('empresa_id', $empresa_id)->count();
+        $total_compras = Compra::where('empresa_id', $empresa_id)->count();
+        $total_clientes = Cliente::where('empresa_id', $empresa_id)->count();
+        $total_ventas = Venta::where('empresa_id', $empresa_id)->count();
+        $total_arqueos = Arqueo::where('empresa_id', $empresa_id)->count();
         $total_permisos = Permission::count();
+        $total_ventas_grafico = Venta::where('empresa_id', $empresa_id)->get();
+
         //esta paso es en caso que el sistema se desconecte por cualquier razon y pierda el usuario, nos enviara a login
         $empresa_id = Auth::check() ?  Auth::user()->empresa_id : redirect()->route('login')->send();
 
@@ -46,7 +49,8 @@ class AdminController extends Controller
             'total_clientes',
             'total_ventas',
             'total_arqueos',
-            'total_permisos'
+            'total_permisos',
+            'total_ventas_grafico'
         ));
     }
 }

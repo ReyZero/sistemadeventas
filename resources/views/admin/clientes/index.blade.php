@@ -10,7 +10,7 @@
 
 @section('content')
 <div class="row justify-content-center">
-    <div class="col-md-8">
+    <div class="col-md-10">
         <div class="card card-outline card-red">
             <div class="card-header">
                 <h3 class="card-title">Clientes Registrado</h3>

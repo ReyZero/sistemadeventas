@@ -15,9 +15,7 @@
                     <!--<a href="{{url('admin/permisos/reporte')}}" target="_blank" class="btn btn-info" style="background-color: #5BC0DE; color:white;">
                         <i class="fa fa-file-pdf"></i> Reporte de Permisos -->
                     </a>
-                    <a href="{{url('admin/permisos/create')}}" class="btn btn-success" style="background-color: #28A745; color:white;">
-                        <i class="fa fa-plus"></i> Crear PERMISOS
-                    </a>
+
                 </div>
             </div>
             <div class="card-body">
@@ -26,7 +24,7 @@
                         <tr>
                             <th scope="col">Nro</th>
                             <th scope="col">Nombre del Permiso</th>
-                            <th scope="col" style="text-align:center;">Acciones</th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -35,40 +33,7 @@
                         <tr>
                             <td>{{$contador++}}</td>
                             <td>{{$permiso->name}}</td>
-                            <td style="text-align:center;">
-                                <div class="btn-group" role="group">
-                                    <a href="{{url('/admin/permisos',$permiso->id)}}" class="btn btn-primary btn-sm" title="Ver"> <i class="fas fa-eye"></i> </a>
-                                    <a href="{{url('admin/permisos/'.$permiso->id.'/edit')}}" class="btn btn-warning btn-sm" title="Editar"> <i class="fas fa-pencil"></i> </a>
 
-                                    <form action="{{ url('/admin/permisos', $permiso->id) }}" method="post" id="formPermiso{{$permiso->id}}">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="button" class="btn btn-danger btn-sm" title="Eliminar" id="deletePermiso{{$permiso->id}}">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </form>
-                                    <script>
-                                        document.addEventListener('DOMContentLoaded', function() {
-                                            const deleteBtn = document.getElementById('deletePermiso{{$permiso->id}}');
-                                            deleteBtn.addEventListener('click', function(event) {
-                                                event.preventDefault();
-                                                Swal.fire({
-                                                    title: '¿Desea ELIMINAR este permiso?',
-                                                    icon: 'warning',
-                                                    showDenyButton: true,
-                                                    confirmButtonText: 'Eliminar',
-                                                    confirmButtonColor: '#a5161d',
-                                                    denyButtonText: 'Cancelar',
-                                                }).then((result) => {
-                                                    if (result.isConfirmed) {
-                                                        document.getElementById('formPermiso{{$permiso->id}}').submit();
-                                                    }
-                                                });
-                                            });
-                                        });
-                                    </script>
-                                </div>
-                            </td>
                         </tr>
                         @endforeach
                     </tbody>

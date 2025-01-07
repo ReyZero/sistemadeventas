@@ -13,10 +13,23 @@ class ProveedorController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function __construct()
+    {
+        //si el usuario esta autenticado, obtener la empresa y compartila en las vistas
+        $this->middleware(function ($request, $next) {
+            if (Auth::check()) {
+                //obtener la empresa segun el id de la empresa del usuario autenticado
+                $empresa = Empresa::find(Auth::user()->empresa_id);
+                //compartir la variable 'empresa' con todas las vistas
+                view()->share('empresa', $empresa);
+            }
+            return $next($request);
+        });
+    }
     public function index()
     {
         //
-        $proveedores = Proveedor::all();
+        $proveedores = Proveedor::where('empresa_id', Auth::user()->id)->get();
         $empresa = Empresa::where('id', Auth::user()->id)->first();
         return view('admin.proveedores.index', compact('proveedores', 'empresa'));
     }
@@ -87,9 +100,9 @@ class ProveedorController extends Controller
     {
         //
         /*
-         $datos = request()->all();
-         return response()->json($datos);
-         
+        $datos = request()->all();
+        return response()->json($datos);
+        
          */
 
         $proveedor = Proveedor::find($id);
@@ -147,7 +160,7 @@ class ProveedorController extends Controller
     {
 
         $empresa = Empresa::where('id', Auth::user()->empresa_id)->first();
-        $proveedores = Proveedor::all();
+        $proveedores = Proveedor::where('empresa_id', Auth::user()->id)->get();
         $pdf = Pdf::loadView('admin.proveedores.reporte', compact('proveedores', 'empresa'))
             ->setPaper('letter', 'landscape');
         return $pdf->stream();

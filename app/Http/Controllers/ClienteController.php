@@ -13,10 +13,23 @@ class ClienteController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function __construct()
+    {
+        //si el usuario esta autenticado, obtener la empresa y compartila en las vistas
+        $this->middleware(function ($request, $next) {
+            if (Auth::check()) {
+                //obtener la empresa segun el id de la empresa del usuario autenticado
+                $empresa = Empresa::find(Auth::user()->empresa_id);
+                //compartir la variable 'empresa' con todas las vistas
+                view()->share('empresa', $empresa);
+            }
+            return $next($request);
+        });
+    }
     public function index()
     {
         //
-        $clientes = Cliente::all();
+        $clientes = Cliente::where('empresa_id', Auth::user()->empresa_id)->get();
         return view('admin.clientes.index', compact('clientes'));
     }
 
@@ -51,7 +64,7 @@ class ClienteController extends Controller
         $cliente->nit_codigo = $request->nit_codigo;
         $cliente->telefono = $request->telefono;
         $cliente->email = $request->email;
-        $cliente->empresa_id =Auth::user()->empresa_id;
+        $cliente->empresa_id = Auth::user()->empresa_id;
 
         $cliente->save();
 
@@ -101,8 +114,8 @@ class ClienteController extends Controller
         $cliente->nit_codigo = $request->nit_codigo;
         $cliente->telefono = $request->telefono;
         $cliente->email = $request->email;
-        $cliente->empresa_id =Auth::user()->empresa_id;
-        
+        $cliente->empresa_id = Auth::user()->empresa_id;
+
         $cliente->save();
         return redirect()->route('admin.clientes.index')
             ->with('mensaje', 'El Cliente fue modificado de la manera correcta')
@@ -125,7 +138,8 @@ class ClienteController extends Controller
     {
 
         $empresa = Empresa::where('id', Auth::user()->empresa_id)->first();
-        $clientes = Cliente::all();
+
+        $clientes = Cliente::where('empresa_id', Auth::user()->empresa_id)->get();
         $pdf = Pdf::loadView('admin.clientes.reporte', compact('clientes', 'empresa'))
             ->setPaper('letter', 'landscape');
         return $pdf->stream();

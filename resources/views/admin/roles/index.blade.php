@@ -15,8 +15,8 @@
             <div class="card-header">
                 <h3 class="card-title">Roles Registrado</h3>
                 <div class="card-tools">
-                <a href="{{url('admin/roles/reporte')}}" target="_blank" class="btn btn-danger" style="background-color: #007BFF; color:white;"><i class="fa fa-file-pdf"> </i> Reporte de Roles</a>
-                <a href="{{url('admin/roles/create')}}" class="btn btn-warning" style="background-color: #FD7E14; color:white;"><i class="fa fa-plus"></i> Crear nuevo</a>
+                    <a href="{{url('admin/roles/reporte')}}" target="_blank" class="btn btn-danger" style="background-color: #007BFF; color:white;"><i class="fa fa-file-pdf"> </i> Reporte de Roles</a>
+                    <a href="{{url('admin/roles/create')}}" class="btn btn-warning" style="background-color: #FD7E14; color:white;"><i class="fa fa-plus"></i> Crear nuevo</a>
                 </div>
             </div>
             <div class="card-body">
@@ -40,8 +40,12 @@
                             <td style="text-align:center;">
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <a href="{{url('/admin/roles',$role->id)}}" class="btn btn-success btn-sm" title="ver"><i class="fas fa-eye"></i></a>
+                                    @if ($role->name !=='ADMINISTRADOR')
                                     <a href="{{url('admin/roles/'.$role->id.'/edit')}}" type="button" class="btn btn-warning btn-sm" title="Editar"><i class="fas fa-pencil"></i></a>
+                                    @endif
                                     <a href="{{url('admin/roles/'.$role->id.'/asignar')}}" type="button" class="btn btn-info btn-sm" title="Asignar permisos"><i class="fas fa-user-cog"></i></a>
+                                    @if ($role->name !=='ADMINISTRADOR')
+
                                     <form action="{{ url('/admin/roles', $role->id) }}" method="post" id="miFormulario{{$role->id}}">
                                         @csrf
                                         @method('DELETE')
@@ -50,6 +54,7 @@
                                             <i class="fas fa-trash"></i>
                                         </button>
                                     </form>
+
 
                                     <script>
                                         // Usamos un event listener para asegurar que el código se ejecute después de que el DOM se haya cargado
@@ -79,7 +84,7 @@
                                             });
                                         });
                                     </script>
-
+                                    @endif
 
                                 </div>
                             </td>

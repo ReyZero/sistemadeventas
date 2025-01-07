@@ -23,14 +23,27 @@ class VentaController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function __construct()
+    {
+        //si el usuario esta autenticado, obtener la empresa y compartila en las vistas
+        $this->middleware(function ($request, $next) {
+            if (Auth::check()) {
+                //obtener la empresa segun el id de la empresa del usuario autenticado
+                $empresa = Empresa::find(Auth::user()->empresa_id);
+                //compartir la variable 'empresa' con todas las vistas
+                view()->share('empresa', $empresa);
+            }
+            return $next($request);
+        });
+    }
     public function index()
     {
         //
 
         //Bloquear boton de ventas sin arqueo iniciado
-        $arqueoAbierto = Arqueo::whereNull('fecha_cierre')->first();
+        $arqueoAbierto = Arqueo::whereNull('fecha_cierre')->where('empresa_id', Auth::user()->empresa_id)->first();
 
-        $ventas = Venta::with('detalleVenta', 'cliente')->get();
+        $ventas = Venta::with('detalleVenta', 'cliente')->where('empresa_id',Auth::user()->empresa_id)->get();
         return view('admin.ventas.index', compact('ventas', 'arqueoAbierto'));
     }
 
@@ -98,7 +111,7 @@ class VentaController extends Controller
 
 
         /*REGISTRAR EN EL ARQUEO INGRESO */
-        $arqueo_id = Arqueo::whereNull('fecha_cierre')->first();
+        $arqueo_id = Arqueo::whereNull('fecha_cierre')->where('empresa_id',Auth::user()->empresa_id)->first();
         $movimiento = new MovimientoCaja();
         $movimiento->tipo = "INGRESO";
         $movimiento->monto = $request->precio_total;
@@ -192,8 +205,8 @@ class VentaController extends Controller
     public function edit($id)
     {
         //echo ($id);
-        $productos = Producto::all();
-        $clientes = Cliente::all();
+        $productos = Producto::where('empresa_id',Auth::user()->empresa_id)->get();
+        $clientes = Cliente::where('empresa_id',Auth::user()->empresa_id)->get();
         $venta = Venta::with('detalleVenta', 'cliente')->findOrFail($id);
         return view('admin.ventas.edit', compact('venta', 'productos', 'clientes'));
     }
@@ -251,9 +264,9 @@ class VentaController extends Controller
     {
 
         $empresa = Empresa::where('id', Auth::user()->empresa_id)->first();
-        $ventas = Venta::with('cliente')->get();
+        $ventas = Venta::with('cliente')->where('empresa_id',Auth::user()->empresa_id)->get();
         $pdf = Pdf::loadView('admin.ventas.reporte', compact('ventas', 'empresa'))
-        ->setPaper('letter', 'landscape');
+            ->setPaper('letter', 'landscape');
         return $pdf->stream();
     }
 }

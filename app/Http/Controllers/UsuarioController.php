@@ -16,6 +16,19 @@ class UsuarioController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function __construct()
+    {
+        //si el usuario esta autenticado, obtener la empresa y compartila en las vistas
+        $this->middleware(function ($request, $next) {
+            if (Auth::check()) {
+                //obtener la empresa segun el id de la empresa del usuario autenticado
+                $empresa = Empresa::find(Auth::user()->empresa_id);
+                //compartir la variable 'empresa' con todas las vistas
+                view()->share('empresa', $empresa);
+            }
+            return $next($request);
+        });
+    }
     public function index()
     {
         //
@@ -30,7 +43,8 @@ class UsuarioController extends Controller
     public function create()
     {
         //
-        $roles = Role::all();
+        $empresa_id = Auth::user()->empresa_id;
+        $roles = Role::where('empresa_id', $empresa_id)->get();
         return view('admin.usuarios.create', compact('roles'));
     }
 
@@ -82,7 +96,8 @@ class UsuarioController extends Controller
     {
         //echo $id;
         $usuario = User::find($id);
-        $roles = Role::all();
+        $empresa_id = Auth::user()->empresa_id;
+        $roles = Role::where('empresa_id', $empresa_id)->get();
         return view('admin.usuarios.edit', compact('usuario', 'roles'));
     }
 
@@ -133,7 +148,8 @@ class UsuarioController extends Controller
     {
 
         $empresa = Empresa::where('id', Auth::user()->empresa_id)->first();
-        $usuarios = User::all();
+        $empresa_id = Auth::user()->empresa_id;
+        $usuarios = User::where('empresa_id', $empresa_id)->get();
         $pdf = PDF::loadView('admin.usuarios.reporte', compact('usuarios', 'empresa'));
         return $pdf->stream();
     }

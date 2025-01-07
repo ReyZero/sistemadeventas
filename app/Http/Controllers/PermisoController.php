@@ -2,11 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Empresa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Permission;
 
 class PermisoController extends Controller
 {
+    public function __construct()
+    {
+        //si el usuario esta autenticado, obtener la empresa y compartila en las vistas
+        $this->middleware(function ($request, $next) {
+            if (Auth::check()) {
+                //obtener la empresa segun el id de la empresa del usuario autenticado
+                $empresa = Empresa::find(Auth::user()->empresa_id);
+                //compartir la variable 'empresa' con todas las vistas
+                view()->share('empresa', $empresa);
+            }
+            return $next($request);
+        });
+    }
     public function index()
     {
         $permisos = Permission::all();

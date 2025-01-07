@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 
 
@@ -120,7 +122,18 @@ class EmpresaController extends Controller
         $usuario->save();
 
         //Usuario asignado como admin
-        $usuario->assignRole('ADMINISTRADOR');
+        $rol = new Role();
+        $rol->name = "ADMINISTRADOR";
+        $rol->empresa_id = $empresa->id;
+        $rol->save();
+
+        $usuario->assignRole($rol->id);
+
+        $role = Role::find($rol->id);
+        $todos_los_permisos = Permission::pluck('id')->toArray();
+        $role->permissions()->sync($todos_los_permisos);
+
+
         //Da acceso automaticamente al usuario
         Auth::login($usuario);
 
@@ -173,9 +186,9 @@ class EmpresaController extends Controller
         $request->validate([
             'nombre_empresa' => 'required',
             'tipo_empresa' => 'required',
-            'nit' => 'required|unique:empresas,nit,'.$id,
+            'nit' => 'required|unique:empresas,nit,' . $id,
             'telefono' => 'required',
-            'correo' => 'required|unique:empresas,correo,'.$id,
+            'correo' => 'required|unique:empresas,correo,' . $id,
             'cantidad_impuesto' => 'required',
             'nombre_impuesto' => 'required',
             'direccion' => 'required',
@@ -210,7 +223,7 @@ class EmpresaController extends Controller
 
         $usuario_id = Auth::user()->id;
         // Actualizar un usuario para el sistema
-        $usuario = User::find($usuario_id) ;
+        $usuario = User::find($usuario_id);
         $usuario->name = "Admin";
         $usuario->email = $request->correo;
         $usuario->password = Hash::make($request['nit']);
@@ -218,11 +231,11 @@ class EmpresaController extends Controller
         $usuario->save();
 
         //Da acceso automaticamente al usuario
-         
+
 
         return redirect()->route('admin.index')
             ->with('mensaje', 'Se Actualizo los datos de la empresa de la Manera correcta')
-            ->with('icono','success');
+            ->with('icono', 'success');
     }
 
     /**

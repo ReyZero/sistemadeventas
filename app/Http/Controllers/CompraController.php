@@ -19,12 +19,25 @@ class CompraController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function __construct()
+    {
+        //si el usuario esta autenticado, obtener la empresa y compartila en las vistas
+        $this->middleware(function ($request, $next) {
+            if (Auth::check()) {
+                //obtener la empresa segun el id de la empresa del usuario autenticado
+                $empresa = Empresa::find(Auth::user()->empresa_id);
+                //compartir la variable 'empresa' con todas las vistas
+                view()->share('empresa', $empresa);
+            }
+            return $next($request);
+        });
+    }
     public function index()
     {
         //
-        $arqueoAbierto = Arqueo::whereNull('fecha_cierre')->first();
+        $arqueoAbierto = Arqueo::whereNull('fecha_cierre')->where('empresa_id',Auth::user()->empresa_id)->first();
 
-        $compras = Compra::with('detalles', 'proveedor')->get();
+        $compras = Compra::with('detalles', 'proveedor')->where('empresa_id',Auth::user()->empresa_id)->get();
         return view('admin.compras.index', compact('compras','arqueoAbierto'));
     }
 
@@ -71,7 +84,7 @@ class CompraController extends Controller
         $compra->save();
 
         /*REGISTRAR EN EL ARQUEO EGRESO */
-        $arqueo_id = Arqueo::whereNull('fecha_cierre')->first();
+        $arqueo_id = Arqueo::whereNull('fecha_cierre')->where('empresa_id',Auth::user()->empresa_id)->first();
         $movimiento = new MovimientoCaja();
         $movimiento->tipo = "EGRESO";
         $movimiento->monto = $request->precio_total;
@@ -128,8 +141,8 @@ class CompraController extends Controller
 
         $compra = Compra::with('detalles', 'proveedor')->findOrFail($id);
 
-        $proveedores = Proveedor::all();
-        $productos = Producto::all();
+        $proveedores = Proveedor::where('empresa_id',Auth::user()->empresa_id)->get();
+        $productos = Producto::where('empresa_id',Auth::user()->empresa_id)->get();;
 
         return view('admin.compras.edit', compact('compra', 'proveedores', 'productos'));
     }
@@ -194,7 +207,7 @@ class CompraController extends Controller
     {
 
         $empresa = Empresa::where('id', Auth::user()->empresa_id)->first();
-        $compras = Compra::all();
+        $compras = Compra::where('empresa_id',Auth::user()->empresa_id)->get();
         $pdf = Pdf::loadView('admin.compras.reporte', compact('compras', 'empresa'))
             ->setPaper('letter', 'landscape');
         return $pdf->stream();

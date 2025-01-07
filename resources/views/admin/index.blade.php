@@ -158,6 +158,35 @@
 
 
 </div>
+
+<!-- LA GRAFICA -->
+<div class="row">
+    <div class="col-md-6">
+        <div class="card  card-outline card-primary ">
+            <div class="card-header">
+                <h3>Total Cantidad de Ventas</h3>
+            </div>
+            <div class="card-body">
+                <div>
+                    <canvas id="myChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card  card-outline card-primary ">
+            <div class="card-header">
+                <h3>Total Costo de Ventas</h3>
+            </div>
+            <div class="card-body">
+                <div>
+                    <canvas id="myChart2"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @stop
 
 @section('css')
@@ -183,6 +212,149 @@
 @stop
 
 @section('js')
+<!-- GRAFICA 1 -->
+<?php
+$meses = array_fill(1, 12, 0);
+$suma_ventas = array_fill(1, 12, 0);
+foreach ($total_ventas_grafico as $totalventagrafico) {
+    $fecha = strtotime($totalventagrafico['fecha']);
+    $mes= date('m',$fecha);
+
+    $meses[(int)$mes]++;
+    $suma_ventas[(int)$mes]+=$totalventagrafico['precio_total'];
+}
+$reporte_cantidad= implode(',',$meses);
+$reporte_ventas= implode(',',$suma_ventas);
+
+?>
+<script>
+    var meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+    var datos = [{{$reporte_cantidad}}];
+    // Personalización de colores
+    // Personalización de colores
+    var coloresDeFondo = [
+        'rgba(75, 192, 192, 0.5)', // Verde
+        'rgba(54, 162, 235, 0.5)', // Azul
+        'rgba(255, 206, 86, 0.5)', // Amarillo
+        'rgba(255, 99, 132, 0.5)', // Rojo
+        'rgba(153, 102, 255, 0.5)', // Morado
+        'rgba(255, 159, 64, 0.5)', // Naranja
+        'rgba(201, 203, 207, 0.5)' // Gris
+    ];
+    var coloresDeBorde = [
+        'rgba(75, 192, 192, 1)',
+        'rgba(54, 162, 235, 1)',
+        'rgba(255, 206, 86, 1)',
+        'rgba(255, 99, 132, 1)',
+        'rgba(153, 102, 255, 1)',
+        'rgba(255, 159, 64, 1)',
+        'rgba(201, 203, 207, 1)'
+    ];
+
+    // Inicialización del gráfico
+    const ctx = document.getElementById('myChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'line', // Tipo de gráfico
+        data: {
+            labels: meses,
+            datasets: [{
+                label: 'Cantidad de Ventas',
+                data: datos,
+                backgroundColor: coloresDeFondo, // Colores de fondo
+                borderColor: coloresDeBorde, // Colores del borde
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    labels: {
+                        color: 'white' // Cambia el color del texto de la leyenda (label) a blanco
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        color: 'white' // Cambia el color del texto de los meses a blanco
+                    }
+                },
+                y: {
+                    beginAtZero: true, // Escala inicia en 0
+                    ticks: {
+                        color: 'white' // Opcional: cambia el color del texto del eje Y a blanco
+                    }
+                }
+            }
+        }
+    });
+</script>
+<!-- GRAFICA 2 -->
+<script>
+    var meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+    var datos = [{{$reporte_ventas}}];
+    // Personalización de colores
+    // Personalización de colores
+    var coloresDeFondo = [
+        'rgba(75, 192, 192, 0.5)', // Verde
+        'rgba(54, 162, 235, 0.5)', // Azul
+        'rgba(255, 206, 86, 0.5)', // Amarillo
+        'rgba(255, 99, 132, 0.5)', // Rojo
+        'rgba(153, 102, 255, 0.5)', // Morado
+        'rgba(255, 159, 64, 0.5)', // Naranja
+        'rgba(201, 203, 207, 0.5)' // Gris
+    ];
+    var coloresDeBorde = [
+        'rgba(75, 192, 192, 1)',
+        'rgba(54, 162, 235, 1)',
+        'rgba(255, 206, 86, 1)',
+        'rgba(255, 99, 132, 1)',
+        'rgba(153, 102, 255, 1)',
+        'rgba(255, 159, 64, 1)',
+        'rgba(201, 203, 207, 1)'
+    ];
+
+    // Inicialización del gráfico
+    const ctx2 = document.getElementById('myChart2').getContext('2d');
+    new Chart(ctx2, {
+        type: 'bar', // Tipo de gráfico
+        data: {
+            labels: meses,
+            datasets: [{
+                label: 'Monto total de Ventas',
+                data: datos,
+                backgroundColor: coloresDeFondo, // Colores de fondo
+                borderColor: coloresDeBorde, // Colores del borde
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    labels: {
+                        color: 'white' // Cambia el color del texto de la leyenda (label) a blanco
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        color: 'white' // Cambia el color del texto de los meses a blanco
+                    }
+                },
+                y: {
+                    beginAtZero: true, // Escala inicia en 0
+                    ticks: {
+                        color: 'white' // Opcional: cambia el color del texto del eje Y a blanco
+                    }
+                }
+            }
+        }
+    });
+</script>
+
 @if ((($mensaje=Session::get('mensaje')) &&(($icono=Session::get('icono')))))
 <script>
     Swal.fire({

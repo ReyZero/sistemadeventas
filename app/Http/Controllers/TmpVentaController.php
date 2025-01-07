@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Producto;
 use App\Models\TmpVenta;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TmpVentaController extends Controller
 {
@@ -21,11 +22,18 @@ class TmpVentaController extends Controller
      */
     public function tmp_ventas(Request $request)
     {
-        $producto = Producto::where('codigo', $request->codigo)->first();
+        $producto = Producto::where('codigo', $request->codigo)->where('empresa_id',Auth::user()->empresa_id)->first();
 
         $session_id = session()->getId();
 
         if ($producto) {
+
+            if($request->cantidad>$producto->stock){
+                return response()->json([
+                    'success'=>false,
+                    'message'=>'La Cantidad solicitada, excede el Stock Disponible. Solo existen: '.$producto->stock. ' Productos disponibles'
+                ]);
+            }
 
             $tmp_venta_existe = TmpVenta::where('producto_id', $producto->id)
                 ->where('session_id', $session_id)

@@ -15,11 +15,26 @@ class ArqueoController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    public function __construct()
+    {
+        //si el usuario esta autenticado, obtener la empresa y compartila en las vistas
+        $this->middleware(function ($request, $next) {
+            if (Auth::check()) {
+                //obtener la empresa segun el id de la empresa del usuario autenticado
+                $empresa = Empresa::find(Auth::user()->empresa_id);
+                //compartir la variable 'empresa' con todas las vistas
+                view()->share('empresa', $empresa);
+            }
+            return $next($request);
+        });
+    }
     public function index()
     {
 
-        $arqueoAbierto = Arqueo::whereNull('fecha_cierre')->first();
-        $arqueos = Arqueo::with('movimientos')->get();
+        $arqueoAbierto = Arqueo::whereNull('fecha_cierre')->where('empresa_id', Auth::user()->empresa_id)->first();
+        $arqueos = Arqueo::with('movimientos')->where('empresa_id', Auth::user()->empresa_id)->get();
+
 
         foreach ($arqueos as $arqueo) {
             $arqueo->total_ingresos = $arqueo->movimientos->where('tipo', 'INGRESO')->sum('monto');
@@ -72,7 +87,7 @@ class ArqueoController extends Controller
     public function show($id)
     //echo $id;
     {
-        $arqueo = Arqueo::find($id)->first();
+        $arqueo = Arqueo::find($id)->where('empresa_id', Auth::user()->empresa_id)->first();
         $movimientos = MovimientoCaja::where('arqueo_id', $id)->get();
 
         return view('admin.arqueos.show', compact('arqueo', 'movimientos'));
@@ -87,7 +102,7 @@ class ArqueoController extends Controller
         echo $id;
         */
 
-        $arqueo = Arqueo::find($id)->first();
+        $arqueo = Arqueo::find($id)->where('empresa_id', Auth::user()->empresa_id)->first();
         return view('admin.arqueos.edit', compact('arqueo'));
     }
 
@@ -188,7 +203,7 @@ class ArqueoController extends Controller
 
         $empresa = Empresa::where('id', Auth::user()->empresa_id)->first();
 
-        $arqueos = Arqueo::with('movimientos')->get();
+        $arqueos = Arqueo::with('movimientos')->where('empresa_id', Auth::user()->empresa_id)->get();
 
         foreach ($arqueos as $arqueo) {
             $arqueo->total_ingresos = $arqueo->movimientos->where('tipo', 'INGRESO')->sum('monto');

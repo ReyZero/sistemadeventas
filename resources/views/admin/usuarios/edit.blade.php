@@ -13,7 +13,7 @@
     <div class="col-md-9">
         <div class="card card-outline card-success">
             <div class="card-header">
-                <h3 class="card-title">Datos  Registrados</h3>
+                <h3 class="card-title">Datos Registrados</h3>
             </div>
             <div class="card-body">
                 <form action="{{url('/admin/usuarios',$usuario->id)}}" method="post">
@@ -36,7 +36,13 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="name">Nombre del Usuario</label><b style="color: crimson;"> *</b>
+                                @if ($usuario->name ==='Admin')
+                                <input type="text" class="form-control" required value="{{$usuario->name}}" disabled>
+                                <input type="text" class="form-control" name="name" required value="{{$usuario->name}}" hidden>
+                                @else
                                 <input type="text" class="form-control" name="name" required value="{{$usuario->name}}">
+                                @endif
+
                                 @error('name')
                                 <small style="color:red;">{{$message}}</small>
                                 @enderror
@@ -57,7 +63,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="password">Indique Contraseña</label><b style="color: crimson;"> </b>
-                                <input type="password" class="form-control" name="password"  value="{{old('password')}}">
+                                <input type="password" class="form-control" name="password" value="{{old('password')}}">
                                 @error('password')
                                 <small style="color:red;">{{$message}}</small>
                                 @enderror
@@ -66,7 +72,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="password_confirmation">Repita Contraseña</label><b style="color: crimson;"> </b>
-                                <input type="password" class="form-control" name="password_confirmation"  value="{{old('password_confirmation')}}">
+                                <input type="password" class="form-control" name="password_confirmation" value="{{old('password_confirmation')}}">
                                 @error('password_confirmation')
                                 <small style="color:red;">{{$message}}</small>
                                 @enderror

@@ -25,7 +25,7 @@
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <label for="cantidad">Cantidad</label><b style="color: crimson;"> *</b>
-                                        <input type="number" class="form-control" id="cantidad"  required value="1" style="text-align: center; background-color: rgba(233, 231, 16, 0.15);">
+                                        <input type="number" class="form-control" id="cantidad" required value="1" style="text-align: center; background-color: rgba(233, 231, 16, 0.15);">
                                         @error('cantidad')
                                         <small style="color:red;">{{$message}}</small>
                                         @enderror
@@ -224,7 +224,7 @@
                                                                 <tr>
                                                                     <td style="text-align:center; vertical-align:middle;">{{$contador++}}</td>
                                                                     <td style="text-align:center; vertical-align:middle;">
-                                                                        <button type="button" class=" btn btn-info seleccionar-btn-cliente" data-id="{{$cliente->id}}"  data-nit="{{$cliente->nit_codigo}}"  data-nombrecliente="{{$cliente->nombre_cliente}}"><i class="fas fa-truck-fast"> </i> Seleccionar</button>
+                                                                        <button type="button" class=" btn btn-info seleccionar-btn-cliente" data-id="{{$cliente->id}}" data-nit="{{$cliente->nit_codigo}}" data-nombrecliente="{{$cliente->nombre_cliente}}"><i class="fas fa-truck-fast"> </i> Seleccionar</button>
                                                                     </td>
                                                                     <td style="text-align:center; vertical-align:middle;">{{$cliente->nombre_cliente}}</td>
                                                                     <td style="text-align:center; vertical-align:middle;">{{$cliente->nit_codigo}}</td>
@@ -260,7 +260,7 @@
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label for="nombre_cliente">nombre cliente </label><b style="color: crimson;"> *</b>
-                                                                    <input type="text" class="form-control" id="nombre_cliente"   value="{{old('nombre_cliente')}}">
+                                                                    <input type="text" class="form-control" id="nombre_cliente" value="{{old('nombre_cliente')}}">
                                                                     @error('nombre_cliente')
                                                                     <small style="color:red;">{{$message}}</small>
                                                                     @enderror
@@ -269,7 +269,7 @@
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label for="nit_codigo">NIT /codigo Cliente</label><b style="color: crimson;"> *</b>
-                                                                    <input type="text" class="form-control" id="nit_codigo"   value="{{old('nit_codigo')}}">
+                                                                    <input type="text" class="form-control" id="nit_codigo" value="{{old('nit_codigo')}}">
                                                                     @error('nit_codigo')
                                                                     <small style="color:red;">{{$message}}</small>
                                                                     @enderror
@@ -280,7 +280,7 @@
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label for="telefono">Teléfono</label><b style="color: crimson;"> *</b>
-                                                                    <input type="text" class="form-control" id="telefono"    value="{{old('telefono')}}">
+                                                                    <input type="text" class="form-control" id="telefono" value="{{old('telefono')}}">
                                                                     @error('telefono')
                                                                     <small style="color:red;">{{$message}}</small>
                                                                     @enderror
@@ -289,7 +289,7 @@
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label for="email">Correo Electronico</label><b style="color: crimson;"> *</b>
-                                                                    <input type="email" class="form-control" id="email"    value="{{old('email')}}">
+                                                                    <input type="email" class="form-control" id="email" value="{{old('email')}}">
                                                                     @error('email')
                                                                     <small style="color:red;">{{$message}}</small>
                                                                     @enderror
@@ -313,13 +313,13 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <label for="nombre Cliente">Nombre del Cliente</label>
-                                    <input type="text" class="form-control" id="nombre_cliente_select"  required value="S/N">
+                                    <input type="text" class="form-control" id="nombre_cliente_select" required value="S/N">
                                     <input type="text" class="form-control" readonly id="id_cliente" name="cliente_id" hidden>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="nit Cliente">NIT / Código / Rut del Cliente</label>
-                                    <input type="text" class="form-control" id="nit_cliente_select"  required value="0">                                    
-                                </div>                                
+                                    <input type="text" class="form-control" id="nit_cliente_select" required value="0">
+                                </div>
                             </div>
                             <hr style="background-color: #00BC8C; height: 1px; border: none;">
                             <div class="row">
@@ -332,7 +332,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                
+
                             </div>
 
                             <div class="row">
@@ -444,7 +444,7 @@
     $('.seleccionar-btn-cliente').click(function() {
         var id_cliente = $(this).data('id');
         var nombre_cliente = $(this).data('nombrecliente');
-        var nit_codigo=$(this).data('nit');
+        var nit_codigo = $(this).data('nit');
         //alert(nombre_cliente);
         //alert(empresa);
 
@@ -537,17 +537,17 @@
                             Swal.fire({
                                 position: "top-end",
                                 icon: "success",
-                                title: "Se registró el producto",
+                                title: response.message,
                                 showConfirmButton: false,
                                 timer: 1500
                             });
                             location.reload();
                         } else {
-                            alert('No se encotro al producto');
+                            alert(response.message);
                         }
                     },
                     error: function(error) {
-                        alert(error);
+                        alert(response.message + error);
                     }
                 });
             }

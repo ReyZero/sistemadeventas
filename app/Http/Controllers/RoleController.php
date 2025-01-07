@@ -19,10 +19,25 @@ class RoleController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+
+    public function __construct()
+    {
+        //si el usuario esta autenticado, obtener la empresa y compartila en las vistas
+        $this->middleware(function ($request, $next) {
+            if (Auth::check()) {
+                //obtener la empresa segun el id de la empresa del usuario autenticado
+                $empresa = Empresa::find(Auth::user()->empresa_id);
+                //compartir la variable 'empresa' con todas las vistas
+                view()->share('empresa', $empresa);
+            }
+            return $next($request);
+        });
+    }
     public function index()
     {
         //
-        $roles = Role::all();
+        $roles = Role::where('empresa_id', Auth::user()->empresa_id)->get();
         return view('admin.roles.index', compact('roles'));
     }
 
@@ -54,6 +69,7 @@ class RoleController extends Controller
 
         $rol->name = $request->name;
         $rol->guard_name = "web";
+        $rol->empresa_id = Auth::user()->empresa_id;
 
         $rol->save();
 
@@ -100,9 +116,7 @@ class RoleController extends Controller
         $datos= $request->all();
         return response()->json($datos);
          */
-        $this->validate($request, [
-            'name' => 'required|unique:roles,name,' . $id,
-        ]);
+
         $rol = Role::find($id);
 
         $rol->name = $request->name;
@@ -134,7 +148,7 @@ class RoleController extends Controller
     {
 
         $empresa = Empresa::where('id', Auth::user()->empresa_id)->first();
-        $roles = Role::all();
+        $roles = Role::where('empresa_id', Auth::user()->empresa_id)->get();
         $pdf = PDF::loadView('admin.roles.reporte', compact('roles', 'empresa'));
         return $pdf->stream();
     }
