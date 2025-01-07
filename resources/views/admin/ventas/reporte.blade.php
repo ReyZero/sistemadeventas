@@ -188,7 +188,7 @@
                 <tr>
                     <td> {{$contador++}} </td>
                     <td> {{ \Carbon\Carbon::parse($venta->fecha)->format('d/m/Y')}} </td>
-                    <td>{{$venta->precio_total}}</td>
+                    <td>${{number_format($venta->precio_total,0,',','.')}}</td>
                     <td>{{$venta->cliente->nombre_cliente}}</td>
                     <td>{{$venta->cliente->nit_codigo}}</td>
                     <td>{{ $venta->created_at->format('d/m/Y H:i:s') }}</td>
@@ -197,7 +197,7 @@
                 @endforeach
             </tbody>
         </table>
-        <p><b>Total en Ventas: {{$suma_total}}</b></p>
+        <p><b>Total en Ventas:$ {{number_format($suma_total,0,',','.')}}</b></p>
     </div>
 
     <div class="footer">

@@ -116,6 +116,8 @@
                                         </div>
 
                                         <a href="{{url('/admin/productos/create')}}" class="btn btn-success" type="button"><i class="fas fa-plus"></i></a>
+
+
                                     </div>
                                 </div>
                             </div>
@@ -184,7 +186,10 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <button type="button" class="btn btn-info " data-toggle="modal" data-target="#exampleModal_cliente"><i class="fas fa-search"></i> Buscar Clientes</button>
+                                    <a href="{{url('/admin/clientes/create')}}" class="btn btn-success" type="button"><i class="fas fa-plus"></i></a>
+                                    <!--
                                     <button type="button" class="btn btn-success " data-toggle="modal" data-target="#exampleModal_crear_cliente"><i class="fas fa-plus"></i></button>
+-->
                                     <div class="form-group">
                                         <div style="height: 32px;"></div>
 
@@ -244,6 +249,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <!--
                                         <div class="modal fade" id="exampleModal_crear_cliente" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog modal-lg">
                                                 <div class="modal-content">
@@ -268,7 +274,7 @@
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label for="nit_codigo">NIT /codigo Cliente</label><b style="color: crimson;"> *</b>
+                                                                    <label for="nit_codigo">NIT /codigo Clientes</label><b style="color: crimson;"> *</b>
                                                                     <input type="text" class="form-control" id="nit_codigo" value="{{old('nit_codigo')}}">
                                                                     @error('nit_codigo')
                                                                     <small style="color:red;">{{$message}}</small>
@@ -302,6 +308,7 @@
                                                 </div>
                                             </div>
                                         </div>
+-->
 
                                     </div>
 
@@ -345,7 +352,7 @@
                                             </div>
                                             <input type="text" style="text-align: center; background-color: #3c8dbc; border: 1px solid #8da5b8;"
                                                 class="form-control" name="precio_total" required
-                                                value="{{$total_venta}}">
+                                                value="{{number_format($total_venta,0,',','.')}}">
 
                                             @error('precio_total')
                                             <small style="color:red;">{{$message}}</small>

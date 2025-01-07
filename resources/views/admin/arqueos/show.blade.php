@@ -26,7 +26,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="monto_inicial">Monto Inicial</label><b style="color: crimson;"> </b>
-                            <p>{{$arqueo->monto_inicial}}</p>
+                            <p>$ {{number_format($arqueo->monto_inicial,0,',','.')}}</p>
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -38,7 +38,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="monto_final">Monto Final</label><b style="color: crimson;"> </b>
-                            <p>{{$arqueo->monto_final}}</p>
+                            <p>${{number_format($arqueo->monto_final,0,',','.')}}</p>
                         </div>
                     </div>
                     <div class="row">
@@ -93,7 +93,7 @@
                         <tr style="text-align: center;">
                             <td>{{$contador++}}</td>
                             <td>{{$movimiento->descripcion}}</td>
-                            <td>{{$movimiento->monto}}</td>
+                            <td>$ {{number_format($movimiento->monto,0,',','.')}}</td>
                         </tr>
                         @endif
                         @endforeach
@@ -101,7 +101,7 @@
                     <tfoother>
                         <tr>
                             <td colspan="2" style="text-align: ;"><b>Total:</b></td>
-                            <td style="text-align: center;"><b>{{$suma_monto}}</b></td>
+                            <td style="text-align: center;"><b>$ {{number_format( $suma_monto,0,',','.')}}</b></td>
                         </tr>
                     </tfoother>
                 </table>
@@ -146,15 +146,16 @@
                         <tr style="text-align: center;">
                             <td>{{$contador++}}</td>
                             <td>{{$movimiento->descripcion}}</td>
-                            <td>{{$movimiento->monto}}</td>
+                            <td>$ {{number_format($movimiento->monto,0,',','.')}}</td>
                         </tr>
                         @endif
                         @endforeach
                     </tbody>
                     <tfoother>
                         <tr>
-                            <td colspan="2" style="text-align: ;"><b>Total:</b></td>
-                            <td style="text-align: center;"><b>{{$suma_monto}}</b></td>
+                            <td colspan="2" ><b>Total:</b></td>
+                            <td style="text-align: center;"><b>$ {{number_format( $suma_monto,0,',','.')}}</b></td>
+                            
                         </tr>
                     </tfoother>
                 </table>

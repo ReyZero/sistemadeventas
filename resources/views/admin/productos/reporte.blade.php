@@ -189,8 +189,8 @@
                     <td>{{ $producto->nombre }}</td>
                     <td>{{ $producto->descripcion }}</td>
                     <td>{{$producto->stock}}</td>
-                    <td>{{$producto->precio_compra}}</td>
-                    <td>{{$producto->precio_venta}}</td>
+                    <td>${{number_format($producto->precio_compra,0,',','.')}}</td>
+                    <td>${{number_format($producto->precio_venta,0,',', '.')}}</td>
                     <td>{{ \Carbon\Carbon::parse($producto->fecha_ingreso)->format('d/m/Y') }}</td>
 
                 </tr>

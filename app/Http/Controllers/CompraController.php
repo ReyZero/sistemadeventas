@@ -35,10 +35,10 @@ class CompraController extends Controller
     public function index()
     {
         //
-        $arqueoAbierto = Arqueo::whereNull('fecha_cierre')->where('empresa_id',Auth::user()->empresa_id)->first();
+        $arqueoAbierto = Arqueo::whereNull('fecha_cierre')->where('empresa_id', Auth::user()->empresa_id)->first();
 
-        $compras = Compra::with('detalles', 'proveedor')->where('empresa_id',Auth::user()->empresa_id)->get();
-        return view('admin.compras.index', compact('compras','arqueoAbierto'));
+        $compras = Compra::with('detalles', 'proveedor')->where('empresa_id', Auth::user()->empresa_id)->get();
+        return view('admin.compras.index', compact('compras', 'arqueoAbierto'));
     }
 
     /**
@@ -73,21 +73,25 @@ class CompraController extends Controller
             'precio_total' => 'required'
         ]);
 
+
+        $precioTotalCompra = str_replace('.', '', $request->precio_total); // Elimina los puntos
+        $precioTotal = floatval($precioTotalCompra); // Convierte el valor a tipo float
+
         $session_id = session()->getId();
 
         $compra = new Compra();
         $compra->fecha = $request->fecha;
         $compra->comprobante = $request->comprobante;
-        $compra->precio_total = $request->precio_total;
+        $compra->precio_total = number_format($precioTotal, 2, '.', '');
         $compra->proveedores_id = $request->proveedor_id;
         $compra->empresa_id = Auth::user()->empresa_id;
         $compra->save();
 
         /*REGISTRAR EN EL ARQUEO EGRESO */
-        $arqueo_id = Arqueo::whereNull('fecha_cierre')->where('empresa_id',Auth::user()->empresa_id)->first();
+        $arqueo_id = Arqueo::whereNull('fecha_cierre')->where('empresa_id', Auth::user()->empresa_id)->first();
         $movimiento = new MovimientoCaja();
         $movimiento->tipo = "EGRESO";
-        $movimiento->monto = $request->precio_total;
+        $movimiento->monto = number_format($precioTotal, 0, ',', '');
         $movimiento->descripcion = "COMPRA DE PRODUCTOS";
         $movimiento->arqueo_id = $arqueo_id->id;
 
@@ -141,8 +145,8 @@ class CompraController extends Controller
 
         $compra = Compra::with('detalles', 'proveedor')->findOrFail($id);
 
-        $proveedores = Proveedor::where('empresa_id',Auth::user()->empresa_id)->get();
-        $productos = Producto::where('empresa_id',Auth::user()->empresa_id)->get();;
+        $proveedores = Proveedor::where('empresa_id', Auth::user()->empresa_id)->get();
+        $productos = Producto::where('empresa_id', Auth::user()->empresa_id)->get();;
 
         return view('admin.compras.edit', compact('compra', 'proveedores', 'productos'));
     }
@@ -164,12 +168,13 @@ class CompraController extends Controller
             'precio_total' => 'required'
         ]);
 
-
+        $precioTotal = str_replace('.', '', $request->precio_total); // Elimina los puntos
+        $precioTotal = floatval($precioTotal); // Convierte el valor a tipo float
 
         $compra = Compra::find($id);
         $compra->fecha = $request->fecha;
         $compra->comprobante = $request->comprobante;
-        $compra->precio_total = $request->precio_total;
+        $compra->precio_total = number_format($precioTotal, 2, '.', '');
         $compra->proveedores_id = $request->proveedor_id;
         $compra->empresa_id = Auth::user()->empresa_id;
 
@@ -207,7 +212,7 @@ class CompraController extends Controller
     {
 
         $empresa = Empresa::where('id', Auth::user()->empresa_id)->first();
-        $compras = Compra::where('empresa_id',Auth::user()->empresa_id)->get();
+        $compras = Compra::where('empresa_id', Auth::user()->empresa_id)->get();
         $pdf = Pdf::loadView('admin.compras.reporte', compact('compras', 'empresa'))
             ->setPaper('letter', 'landscape');
         return $pdf->stream();

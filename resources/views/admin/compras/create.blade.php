@@ -321,7 +321,7 @@
                                             </div>
                                             <input type="text" style="text-align: center; background-color: #3c8dbc; border: 1px solid #8da5b8;"
                                                 class="form-control" name="precio_total" required
-                                                value="{{$total_compra}}">
+                                                value="{{number_format($total_compra,0,',','.')}}">
 
                                             @error('precio_total')
                                             <small style="color:red;">{{$message}}</small>

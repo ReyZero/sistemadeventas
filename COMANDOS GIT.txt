@@ -37,6 +37,11 @@ para pasar numeros a texto
 composer require kwn /number-to-words
 
 
+PARA ADECUAR LOS MONTOS AL GUARDAR 
 
+ $precioTotal = str_replace('.', '', $request->precio_total); // Elimina los puntos
+        $precioTotal = floatval($precioTotal); // Convierte el valor a tipo float
+            
+            $compra->precio_total = number_format($precioTotal, 2, '.', '');
 
 ALTER TABLE `´users´` CHANGE `´name´` `´name´` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;

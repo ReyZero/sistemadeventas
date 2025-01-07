@@ -96,19 +96,29 @@
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <label for="precio_compra">Precio de Compra</label><b style="color: crimson;"> *</b>
-                                        <input type="text" class="form-control" name="precio_compra" required value="{{$producto->precio_compra}}">
-                                        @error('precio_compra')
-                                        <small style="color:red;">{{$message}}</small>
-                                        @enderror
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">$ </span>
+                                            </div>
+                                            <input type="text" class="form-control" name="precio_compra" required value="{{number_format($producto->precio_compra,0,',','.')}}">
+                                            @error('precio_compra')
+                                            <small style="color:red;">{{$message}}</small>
+                                            @enderror
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <label for="precio_venta">Precio de Venta</label><b style="color: crimson;"> *</b>
-                                        <input type="text" class="form-control" name="precio_venta" required value="{{$producto->precio_venta}}">
-                                        @error('precio_venta')
-                                        <small style="color:red;">{{$message}}</small>
-                                        @enderror
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">$ </span>
+                                            </div>
+                                            <input type="text" class="form-control" name="precio_venta" required value="{{number_format($producto->precio_venta,0,',','.')}}">
+                                            @error('precio_venta')
+                                            <small style="color:red;">{{$message}}</small>
+                                            @enderror
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-2">

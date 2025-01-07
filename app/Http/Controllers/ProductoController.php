@@ -68,7 +68,8 @@ class ProductoController extends Controller
 
 
         ]);
-
+        $precioproducto = str_replace('.', '', $request->precio_venta); // Elimina los puntos
+        $precioprudctoventa = floatval($precioproducto); // Convierte el valor a tipo float
         $producto = new Producto();
 
         $producto->codigo = $request->codigo;
@@ -78,7 +79,7 @@ class ProductoController extends Controller
         $producto->stock_minimo = $request->stock_minimo;
         $producto->stock_maximo = $request->stock_maximo;
         $producto->precio_compra = $request->precio_compra;
-        $producto->precio_venta = $request->precio_venta;
+        $producto->precio_venta = number_format($precioprudctoventa,2,'.','');
         $producto->fecha_ingreso = $request->fecha_ingreso;
         $producto->categoria_id = $request->categoria_id;
         $producto->empresa_id = Auth::user()->empresa_id;
@@ -137,6 +138,12 @@ class ProductoController extends Controller
             'precio_venta' => 'required',
             'fecha_ingreso' => 'required',
         ]);
+
+        $precioTotalCompra = str_replace('.', '', $request->precio_compra); // Elimina los puntos
+        $precioTotalCom = floatval($precioTotalCompra); // Convierte el valor a tipo float
+        $precioTotalVenta = str_replace('.', '', $request->precio_venta); // Elimina los puntos
+        $precioTotalVen = floatval($precioTotalVenta); // Convierte el valor a tipo float
+
         $producto = Producto::find($id);
 
         $producto->codigo = $request->codigo;
@@ -145,8 +152,8 @@ class ProductoController extends Controller
         $producto->descripcion = $request->descripcion;
         $producto->stock_minimo = $request->stock_minimo;
         $producto->stock_maximo = $request->stock_maximo;
-        $producto->precio_compra = $request->precio_compra;
-        $producto->precio_venta = $request->precio_venta;
+        $producto->precio_compra = number_format($precioTotalCom, 2, '.', '');
+        $producto->precio_venta = number_format($precioTotalVen, 2, '.', '');
         $producto->fecha_ingreso = $request->fecha_ingreso;
         $producto->categoria_id = $request->categoria_id;
         $producto->empresa_id = Auth::user()->empresa_id;

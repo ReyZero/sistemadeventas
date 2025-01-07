@@ -54,19 +54,19 @@
                         <tr style="text-align: center;">
                             <td style="text-align: center;">{{$contador++}}</td>
                             <td>{{ \Carbon\Carbon::parse($arqueo->fecha_apertura)->format('d/m/Y,  H:i:s') }}</td>
-                            <td>{{$arqueo->monto_inicial}}</td>
+                            <td>${{number_format($arqueo->monto_inicial,0,',','.')}}</td>
                             <td>{{$arqueo->fecha_cierre}}</td>
-                            <td>{{$arqueo->monto_final}}</td>
+                            <td>${{number_format($arqueo->monto_final,0 ,',','.')}}</td>
                             <td>{{$arqueo->observaciones}}</td>
                             <td>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <b>Ingresos</b>
-                                        {{number_format($arqueo->total_ingresos,0)}}
+                                        $ {{number_format($arqueo->total_ingresos,0,',','.')}}
                                     </div>
                                     <div class="col-md-6">
                                         <b>Egresos</b>
-                                        {{number_format($arqueo->total_egresos,0)}}
+                                        $ {{number_format($arqueo->total_egresos,0,',','.')}}
                                     </div>
                                 </div>
                             </td>

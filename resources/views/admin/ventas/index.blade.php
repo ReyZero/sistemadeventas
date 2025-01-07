@@ -51,7 +51,7 @@
                             </td>
 
                             <td style="text-align:center; vertical-align:middle;">
-                                $ {{ number_format($venta->precio_total, 0, ',', '.') }}
+                                $ {{ number_format(($venta->precio_total), 0, ',', '.') }}
                             </td>
                             <td>
                                 <ul>

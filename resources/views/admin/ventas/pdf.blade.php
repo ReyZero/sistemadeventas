@@ -171,21 +171,21 @@
                 <td>{{$detalle->producto->nombre}}</td>
                 <td>{{$detalle->producto->descripcion}}</td>
                 <td>{{$detalle->cantidad}}</td>
-                <td>{{$moneda->symbol . ' ' . $detalle->producto->precio_venta}}</td>
-                <td>{{$moneda->symbol . ' ' . $subtotal}}</td>
+                <td>{{$moneda->symbol . ' ' . number_format($detalle->producto->precio_venta,0,',','.')}}</td>
+                <td>{{$moneda->symbol . ' ' . number_format($subtotal,0,',','.')}}</td>
             </tr>
             @endforeach
             <tr>
                 <td colspan="3" class="highlight">Total</td>
                 <td class="highlight">{{$sumacantidad}}</td>
-                <td class="highlight">{{$moneda->symbol . ' ' . $sumpapreciounitario}}</td>
-                <td class="highlight">{{$moneda->symbol . ' ' . $sumasubtotal}}</td>
+                <td class="highlight">{{$moneda->symbol . ' ' . number_format($sumpapreciounitario,0,',','.')}}</td>
+                <td class="highlight">{{$moneda->symbol . ' ' . number_format($sumasubtotal,0,',','.')}}</td>
             </tr>
         </tbody>
     </table>
 
     <p style="margin-top: 20px;">
-        <b>Monto a Cancelar:</b> {{$moneda->symbol . ' ' . $ventas->precio_total}}<br>
+        <b>Monto a Cancelar:</b> {{$moneda->symbol . ' ' . number_format($ventas->precio_total,0,',','.')}}<br>
         <b>Son:</b> {{$literal}}
     </p>
 

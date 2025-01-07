@@ -60,7 +60,7 @@
             </a>
             <div class="info-box-content">
                 <span class="info-box-text" style="color: #fff;">Categorias registrados</span>
-                <span class="info-box-numbers" style="color: #fff;">{{ $total_categorias }} usuarios</span>
+                <span class="info-box-numbers" style="color: #fff;">{{ $total_categorias }} Categorias</span>
             </div>
         </div>
     </div>
@@ -74,7 +74,7 @@
             </a>
             <div class="info-box-content">
                 <span class="info-box-text" style="color: #fff;">Productos registrados</span>
-                <span class="info-box-numbers" style="color: #fff;">{{ $total_productos }} usuarios</span>
+                <span class="info-box-numbers" style="color: #fff;">{{ $total_productos }} Productos</span>
             </div>
         </div>
     </div>
@@ -89,7 +89,7 @@
             </a>
             <div class="info-box-content">
                 <span class="info-box-text" style="color: #fff;">Proveedores registrados</span>
-                <span class="info-box-numbers" style="color: #fff;">{{ $total_proveedores }} productos</span>
+                <span class="info-box-numbers" style="color: #fff;">{{ $total_proveedores }} Proveedores</span>
             </div>
         </div>
     </div>

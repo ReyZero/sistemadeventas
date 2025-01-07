@@ -223,9 +223,9 @@
                 <tr>
                     <td> {{$contador++}} </td>
                     <td> {{ \Carbon\Carbon::parse($arqueo->fecha_apertura)->format('d/m/Y')}} </td>
-                    <td>{{$arqueo->monto_inicial}}</td>
+                    <td>$ {{number_format($arqueo->monto_inicial,0,',','.')}}</td>
                     <td> {{ \Carbon\Carbon::parse($arqueo->fecha_cierre)->format('d/m/Y')}} </td>
-                    <td>{{$arqueo->monto_final}}</td>
+                    <td>$ {{number_format($arqueo->monto_final,0,',','.')}}</td>
                     <td>
                         <table class="nested-table">
                             <thead>
@@ -236,8 +236,8 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>{{$arqueo->total_ingresos}}</td>
-                                    <td>{{$arqueo->total_egresos}}</td>
+                                    <td>$ {{number_format($arqueo->total_ingresos,0,',','.')}}</td>
+                                    <td>$ {{number_format($arqueo->total_egresos,0,',','.')}}</td>
                                 </tr>
                             </tbody>
                         </table>

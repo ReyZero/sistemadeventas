@@ -189,13 +189,13 @@
                     <td> {{$contador++}} </td>
                     <td> {{ \Carbon\Carbon::parse($compra->fecha)->format('d/m/Y')}} </td>
                     <td> {{$compra->comprobante}} </td>
-                    <td> {{$compra->precio_total}} </td>
+                    <td>$ {{number_format($compra->precio_total,0,',','.')}} </td>
                     <td>{{ $compra->created_at->format('d/m/Y H:i:s') }}</td>
                 </tr>
                 @endforeach
             </tbody>
         </table>
-        <p><b>Total de compras: {{$suma_total}}</b></p>
+        <p><b>Total de compras:$ {{number_format($suma_total,0,',','.')}}</b></p>
     </div>
 
     <div class="footer">

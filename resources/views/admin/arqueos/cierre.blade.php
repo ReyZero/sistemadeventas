@@ -33,10 +33,15 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="monto_inicial">Monto Inicial</label><b style="color: crimson;"> </b>
-                                <input type="text" class="form-control" name="monto_inicial" disabled value="{{$arqueo->monto_inicial, old('monto_inicial')}}">
-                                @error('monto_inicial')
-                                <small style="color:red;">{{$message}}</small>
-                                @enderror
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">$ </span>
+                                    </div>
+                                    <input type="text" class="form-control" name="monto_inicial" disabled value="{{number_format($arqueo->monto_inicial,0,',','.'), old('monto_inicial')}}">
+                                    @error('monto_inicial')
+                                    <small style="color:red;">{{$message}}</small>
+                                    @enderror
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -53,10 +58,15 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="monto_final">Monto Final</label><b style="color: crimson;"> </b>
-                                <input type="text" class="form-control" name="monto_final"  value="{{ old('monto_final')}}">
-                                @error('monto_final')
-                                <small style="color:red;">{{$message}}</small>
-                                @enderror
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">$ </span>
+                                    </div>
+                                    <input type="text" class="form-control" name="monto_final" value="{{ old('monto_final')}}">
+                                    @error('monto_final')
+                                    <small style="color:red;">{{$message}}</small>
+                                    @enderror
+                                </div>
                             </div>
                         </div>
                     </div>

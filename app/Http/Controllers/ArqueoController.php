@@ -148,10 +148,12 @@ class ArqueoController extends Controller
         $datos = request()->all();
         return response()->json($datos);
         */
+        $CierreCaja = str_replace('.', '', $request->monto_final); // Elimina los puntos
+        $CierreArqueo = floatval($CierreCaja); // Convierte el valor a tipo float
 
         $arqueo = Arqueo::find($request->id);
         $arqueo->fecha_cierre = $request->fecha_cierre;
-        $arqueo->monto_final = $request->monto_final;
+        $arqueo->monto_final = number_format($CierreArqueo,2,'.','');
 
         $arqueo->save();
 

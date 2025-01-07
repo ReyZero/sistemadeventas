@@ -7,7 +7,7 @@
 
 @section('content')
 <div class="row justify-content-center">
-    <div class="col-md-8">
+    <div class="col-md-4">
         <div class="card card-outline card-purple"> <!-- Cambié el color de la tarjeta a un tono púrpura -->
             <div class="card-header" style="background-color: #6A5ACD; color: white;"> <!-- Fondo púrpura y texto blanco -->
                 <h3 class="card-title">Permisos Registrados</h3>

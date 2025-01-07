@@ -43,7 +43,7 @@ class VentaController extends Controller
         //Bloquear boton de ventas sin arqueo iniciado
         $arqueoAbierto = Arqueo::whereNull('fecha_cierre')->where('empresa_id', Auth::user()->empresa_id)->first();
 
-        $ventas = Venta::with('detalleVenta', 'cliente')->where('empresa_id',Auth::user()->empresa_id)->get();
+        $ventas = Venta::with('detalleVenta', 'cliente')->where('empresa_id', Auth::user()->empresa_id)->get();
         return view('admin.ventas.index', compact('ventas', 'arqueoAbierto'));
     }
 
@@ -99,22 +99,26 @@ class VentaController extends Controller
             'fecha' => 'required',
             'precio_total' => 'required'
         ]);
+        $precioTotalVenta = str_replace('.', '', $request->precio_total); // Elimina los puntos
+        $precioTotal = floatval($precioTotalVenta); // Convierte el valor a tipo float
 
+        $TotalVenta = str_replace('.', '', $request->total_venta); // Elimina los puntos
+        $ptotal = floatval($TotalVenta); // Convierte el valor a tipo float
         $session_id = session()->getId();
 
         $venta = new Venta();
         $venta->fecha = $request->fecha;
-        $venta->precio_total = $request->precio_total;
+        $venta->precio_total =number_format($precioTotal,2,'.','');
         $venta->empresa_id = Auth::user()->empresa_id;
         $venta->cliente_id = $request->cliente_id;
         $venta->save();
 
 
         /*REGISTRAR EN EL ARQUEO INGRESO */
-        $arqueo_id = Arqueo::whereNull('fecha_cierre')->where('empresa_id',Auth::user()->empresa_id)->first();
+        $arqueo_id = Arqueo::whereNull('fecha_cierre')->where('empresa_id', Auth::user()->empresa_id)->first();
         $movimiento = new MovimientoCaja();
         $movimiento->tipo = "INGRESO";
-        $movimiento->monto = $request->precio_total;
+        $movimiento->monto = number_format($ptotal,0,'.', '');
         $movimiento->descripcion = "VENTA DE PRODUCTOS";
         $movimiento->arqueo_id = $arqueo_id->id;
 
@@ -205,8 +209,8 @@ class VentaController extends Controller
     public function edit($id)
     {
         //echo ($id);
-        $productos = Producto::where('empresa_id',Auth::user()->empresa_id)->get();
-        $clientes = Cliente::where('empresa_id',Auth::user()->empresa_id)->get();
+        $productos = Producto::where('empresa_id', Auth::user()->empresa_id)->get();
+        $clientes = Cliente::where('empresa_id', Auth::user()->empresa_id)->get();
         $venta = Venta::with('detalleVenta', 'cliente')->findOrFail($id);
         return view('admin.ventas.edit', compact('venta', 'productos', 'clientes'));
     }
@@ -225,9 +229,12 @@ class VentaController extends Controller
             'fecha' => 'required',
             'precio_total' => 'required',
         ]);
+        $precioTotalVenta = str_replace('.', '', $request->precio_total); // Elimina los puntos
+        $precioTotal = floatval($precioTotalVenta); // Convierte el valor a tipo float
+
         $venta = Venta::findOrFail($id);
         $venta->fecha = $request->fecha;
-        $venta->precio_total = $request->precio_total;
+        $venta->precio_total = number_format($precioTotal,2,'.','');
         $venta->cliente_id = $request->cliente_id;
         $venta->empresa_id = Auth::user()->empresa_id;
         $venta->save();
@@ -264,7 +271,7 @@ class VentaController extends Controller
     {
 
         $empresa = Empresa::where('id', Auth::user()->empresa_id)->first();
-        $ventas = Venta::with('cliente')->where('empresa_id',Auth::user()->empresa_id)->get();
+        $ventas = Venta::with('cliente')->where('empresa_id', Auth::user()->empresa_id)->get();
         $pdf = Pdf::loadView('admin.ventas.reporte', compact('ventas', 'empresa'))
             ->setPaper('letter', 'landscape');
         return $pdf->stream();
